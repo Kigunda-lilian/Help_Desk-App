@@ -17,6 +17,10 @@ class Post(models.Model):
     comments= models.ForeignKey(Comments,on_delete = models.CASCADE,related_name='comments')
     postslikes= models.IntegerField(blank=True,null=True,default=True)
     
+    def create_post(self):
+            self.save()
+
+    
 
     
        
