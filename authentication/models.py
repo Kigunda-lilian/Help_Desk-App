@@ -38,6 +38,15 @@ class Post(models.Model):
     
     class Meta:
         ordering = ['posted_on']
+        
+    @property
+    def saved_comments(self):
+        return self.comments.all()
+    
+    @property
+    def saved_likes(self):
+      return self.postslikes.count()
+    
        
 class Tag(models.Model):
     language= models.CharField(max_length=50)
