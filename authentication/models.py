@@ -31,6 +31,13 @@ class Post(models.Model):
         posts = cls.objects.filter(name__icontains=search_term)
         return posts
     
+    @classmethod
+    def find_post(cls, id):
+        post = cls.objects.get(id=id)
+        return post
+    
+    class Meta:
+        ordering = ['posted_on']
        
 class Tag(models.Model):
     language= models.CharField(max_length=50)
