@@ -1,8 +1,25 @@
+from turtle import title
+from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import User
 import datetime as dt
 
 # Create your models here.
+
+class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT,related_name='user_images')
+    name = models.CharField(max_length=40)
+    question=models.TextField(max_length=280)
+    posted_on = models.DateTimeField(auto_now_add=True)
+    liked= models.ManyToManyField(User,default=None,blank=True,related_name='liked')
+    comment = models.IntegerField(blank=True,null=True,default=True)
+    tag=models.ForeignKey(User,on_delete = models.PROTECT)
+    comments= models.ForeignKey(Comments,on_delete = models.CASCADE,related_name='comments')
+    postslikes= models.IntegerField(blank=True,null=True,default=True)
+    
+
+    
+       
 class Tag(models.Model):
     language= models.CharField(max_length=50)
     stage= models.CharField(max_length=80)
@@ -22,7 +39,7 @@ class Comments(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-         return '%s - %s' % (self.post.title, self.name)
+         return '%s - %s' % (self.post.name, self.name)
     
     
 class Like(models.Model):
@@ -31,6 +48,8 @@ class Like(models.Model):
     
     def __str__(self):
         return self.response
+    
+
    
     
     
