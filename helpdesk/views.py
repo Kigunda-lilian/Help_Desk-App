@@ -105,22 +105,22 @@ def search(request):
 
 
 
-def likes(request,image_id):
+def likes(request,post_id):
   likesForm = LikesForm()
   #  CRUD     
-  obj1=Like.objects.create(user=request.user,image=get_object_or_404(post,pk=image_id),likes=1)
+  obj1=Like.objects.create(user=request.user,post=get_object_or_404(post,pk=post_id),likes=1)
   obj1.save()
   print(obj1)
   return redirect('')
 
-def comments(request,image_id):
+def comments(request,post_id):
   commentsForm = CommentsForm()
   if request.method == 'POST':
     commentsForm = CommentsForm(request.POST)
     if commentsForm.is_valid():
       form = commentsForm.save(commit=False)
       form.user=request.user
-      form.image = get_object_or_404(post,pk=image_id)
+      form.post = get_object_or_404(post,pk=post_id)
       form.save()
   
   return redirect('')
