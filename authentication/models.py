@@ -46,6 +46,9 @@ class Post(models.Model):
     @property
     def saved_likes(self):
       return self.postslikes.count()
+  
+    def __str__(self):
+            return self.name
     
        
 class Tag(models.Model):
