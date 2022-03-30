@@ -25,7 +25,12 @@ class Comments(models.Model):
          return '%s - %s' % (self.post.title, self.name)
     
     
-
+class Like(models.Model):
+    response = models.CharField(choices=reactions,default='like',max_length=70)
+    user = models.ForeignKey(User,on_delete = models.CASCADE)
+    
+    def __str__(self):
+        return self.response
    
     
     
