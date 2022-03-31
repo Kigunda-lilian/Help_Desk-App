@@ -1,5 +1,4 @@
-from turtle import title
-from unicodedata import name
+
 from django.db import models
 from django.contrib.auth.models import User
 import datetime as dt
@@ -14,8 +13,11 @@ class Post(models.Model):
     liked= models.ManyToManyField(User,default=None,blank=True,related_name='liked')
     comment = models.IntegerField(blank=True,null=True,default=True)
     tag=models.ForeignKey(User,on_delete = models.PROTECT)
-    comments= models.ForeignKey(Comments,on_delete = models.CASCADE,related_name='comments')
+    answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
     postslikes= models.IntegerField(blank=True,null=True,default=True)
+    
+    
+
     
     def create_post(self):
             self.save()
@@ -63,7 +65,7 @@ class Tag(models.Model):
 reactions={('Like','Like'),('Unlike','Unlike')}
     
 class Comments(models.Model):
-    post = models.ForeignKey(Post,related_name="comments" ,on_delete=models.CASCADE)
+    question = models.ForeignKey(Post,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='comments')
     name = models.CharField(max_length=255)
     reply = models.TextField()
