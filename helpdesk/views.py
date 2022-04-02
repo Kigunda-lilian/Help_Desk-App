@@ -20,13 +20,13 @@ def my_profile(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
     context={'profile': profile}
-    return render(request, 'Question_app/profile.html', context)
+    return render(request, 'profile.html', context)
 
 @login_required(login_url='/accounts/login/')
 def update_profile_form(request):
 
     context={}
-    return render(request, 'Question_app/updateProfile.html',context)
+    return render(request, 'updateProfile.html',context)
 
 @login_required(login_url='/accounts/login/')
 def update_profile(request):
@@ -85,7 +85,7 @@ def add_question(request):
                 form_results.save()
                 return redirect('/')
         context={'form':form}
-        return render(request,'Question_app/add_question.html',context)
+        return render(request,'add_question.html',context)
     else: 
         return redirect('home')
 
