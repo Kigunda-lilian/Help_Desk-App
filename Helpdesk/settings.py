@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_registration',
 ]
 
 MIDDLEWARE = [
@@ -80,18 +81,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Helpdesk.wsgi.application'
 
-AUTH_USER_MODEL="helpdesk.MyUser"
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -136,9 +135,15 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+ACCOUNT_ACTIVATION_DAYS=7
+DEFAULT_FROM_EMAIL = "segem.kiprono@student.moringaschool.com"
 
-
-LOGIN_REDIRECT_URL = 'index'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER ="segem.kiprono@student.moringaschool.com"
+EMAIL_HOST_PASSWORD = "2020Segem"
+EMAIL_USE_TLS=True
+LOGIN_REDIRECT_URL = "/"
 LOGIN_URL ='login'
 
 django_heroku.settings(locals())

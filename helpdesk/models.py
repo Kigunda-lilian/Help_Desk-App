@@ -42,7 +42,7 @@ class MyUser(AbstractBaseUser):
     date_posted=models.DateTimeField(verbose_name="date posted", auto_now_add=True)
     last_login=models.DateTimeField(verbose_name="last login", auto_now=True)
     is_admin=models.BooleanField(default=False)
-    is_staff=models.BooleanField(default=True)
+    is_staff=models.BooleanField(default=False)
     is_active=models.BooleanField(default=True)
     is_superuser=models.BooleanField(default=True)
 
