@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_registration',
 ]
 AUTH_USER_MODEL = 'authentication.Account'
 MIDDLEWARE = [
@@ -84,14 +85,7 @@ WSGI_APPLICATION = 'Helpdesk.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': ('helpdesk'),
-        'USER': ('moringa'),
-        'PASSWORD':('1234'),
-    }
-}
+
 
 
 # Password validation
@@ -136,9 +130,15 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+ACCOUNT_ACTIVATION_DAYS=7
+DEFAULT_FROM_EMAIL = "segem.kiprono@student.moringaschool.com"
 
-
-LOGIN_REDIRECT_URL = 'index'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER ="segem.kiprono@student.moringaschool.com"
+EMAIL_HOST_PASSWORD = "2020Segem"
+EMAIL_USE_TLS=True
+LOGIN_REDIRECT_URL = "/"
 LOGIN_URL ='login'
 
 django_heroku.settings(locals())

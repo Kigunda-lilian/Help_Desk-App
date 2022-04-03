@@ -1,4 +1,3 @@
-
 from django.db import models
 from authentication.models import Account
 class Profile(models.Model):
@@ -86,4 +85,5 @@ class Like(models.Model):
     
     def __str__(self):
         return self.response
+
 
