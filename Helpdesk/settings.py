@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'Helpdesk.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'helpddomy',
+        'NAME': 'helpdesk',
         'USER': 'moringa',
-    'PASSWORD':'0723120546',
+    'PASSWORD':'1234',
     }
 }
 
