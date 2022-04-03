@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'Helpdesk.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'helpdesk',
-        'USER': 'moringa',
-    'PASSWORD':'1234',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': ('helpdesk'),
+        'USER': ('moringa'),
+        'PASSWORD':('1234'),
     }
-} 
+}
 
 
 # Password validation
