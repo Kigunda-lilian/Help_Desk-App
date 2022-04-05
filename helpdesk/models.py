@@ -1,8 +1,6 @@
 from django.db import models
 from authentication.models import Account
-<<<<<<< HEAD
 
-=======
 class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='images/', default='default.png')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
@@ -10,8 +8,7 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-from django.contrib.auth.models import User
->>>>>>> development
+
 import datetime as dt
 class Post(models.Model):
     user = models.ForeignKey(Account, on_delete=models.PROTECT,null="False",related_name='user_images')
