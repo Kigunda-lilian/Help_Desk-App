@@ -1,4 +1,3 @@
-
 from django.db import models
 from authentication.models import Account
 class Profile(models.Model):
@@ -8,16 +7,15 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-from django.contrib.auth.models import User
 import datetime as dt
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT,related_name='user_images')
+    user = models.ForeignKey(Account, on_delete=models.PROTECT,related_name='user_images')
     name = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
     posted_on = models.DateTimeField(auto_now_add=True)
-    liked= models.ManyToManyField(User,default=None,blank=True,related_name='liked')
+    liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
     comment = models.IntegerField(blank=True,null=True,default=True)
-    tag=models.ForeignKey(User,on_delete = models.PROTECT)
+    tag=models.ForeignKey(Account,on_delete = models.PROTECT)
     answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
     postslikes= models.IntegerField(blank=True,null=True,default=True)
     
@@ -71,7 +69,7 @@ reactions={('Like','Like'),('Unlike','Unlike')}
     
 class Comments(models.Model):
     question = models.ForeignKey(Post,on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='comments')
+    user = models.ForeignKey(Account,on_delete = models.CASCADE,related_name='comments')
     name = models.CharField(max_length=255)
     reply = models.TextField()
     posted_on = models.DateTimeField(auto_now_add=True)
@@ -82,7 +80,7 @@ class Comments(models.Model):
     
 class Like(models.Model):
     response = models.CharField(choices=reactions,default='like',max_length=70)
-    user = models.ForeignKey(User,on_delete = models.CASCADE)
+    user = models.ForeignKey(Account,on_delete = models.CASCADE)
     
     def __str__(self):
         return self.response
