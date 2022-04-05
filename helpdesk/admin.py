@@ -1,4 +1,11 @@
 from re import A
 from django.contrib import admin
 from authentication.models import Account
+from helpdesk.models import Comments, Like, Post, Tag
 admin.site.register(Account)
+admin.site.register(Post)
+admin.site.register(Tag)
+admin.site.register(Comments)
+admin.site.register(Like)
+
+
