@@ -13,7 +13,7 @@ class Post(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True)
     liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
     comment = models.IntegerField(blank=True,null=True,default=True)
-    tag=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
+    tag_title=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
     answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
     postslikes= models.IntegerField(blank=True,null=True,default=True)
     
@@ -57,9 +57,9 @@ class Post(models.Model):
 class Tag(models.Model):
     language= models.CharField(max_length=50)
     stage= models.CharField(max_length=80)
-    title=models.CharField(max_length=50)
+    title=models.CharField(max_length=50,null="False")
     Description=models.TextField()
-    quiz = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='query',null="True")
+    # quiz = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='query',null="True")
     logical=models.BooleanField(default=True)
     technical=models.BooleanField(default=False)
     
