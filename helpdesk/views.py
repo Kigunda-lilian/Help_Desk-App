@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-# from django.conf import settings
-# Create your views here.
-
-# User = settings.AUTH_USER_MODEL
-def tags(request):
-    return render(request, 'questions/tags.html')
-=======
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import post,Profile, Review
 from helpdesk import views,forms
@@ -133,4 +124,3 @@ def comments(request,post_id):
       form.save()
   
   return redirect('')
->>>>>>> development
