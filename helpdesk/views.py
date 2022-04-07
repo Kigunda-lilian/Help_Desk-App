@@ -71,7 +71,7 @@ def post(request):
             form_results.save()
             return redirect('/')
     context={'form':form}
-    return render(request,'Question_app/add_question.html',context)
+    return render(request,'add_question.html',context)
 
  
 def add_question(request): 
