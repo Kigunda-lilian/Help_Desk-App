@@ -1,13 +1,13 @@
 from django.forms import ModelForm
 from django import forms
 
-from helpdesk.views import add_question
-from . models import QuestionAnswer,Profile,Comment,Like,add_question
+from helpdesk.views import Post
+from . models import Comments,Profile,Like,Post
 
 
-class QuestionForm(ModelForm):
+class PostForm(ModelForm):
     class Meta:
-        model=QuestionAnswer
+        model=Comments
         fields="__all__"
 
 
@@ -19,7 +19,7 @@ class ProfileForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
   class Meta:
-    model = Comment
+    model = Comments
     exclude = ['username', 'post']
     
 class LikesForm(forms.Form):
@@ -30,11 +30,11 @@ class LikesForm(forms.Form):
 class UpdateProfileForm(forms.ModelForm):
   class Meta:
     model = Profile
-    fields=['prof_pic','bio']
+    fields=['profile_pic','bio']
 
-class AddQuestionForm(forms.ModelForm):
+class AddPostForm(forms.ModelForm):
   class Meta:
-    model = add_question
+    model = Post
     exclude = []
 
 
