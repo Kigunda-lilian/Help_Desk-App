@@ -74,9 +74,9 @@ WSGI_APPLICATION = 'Helpdesk.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'NAME',
-        'USER': 'USER',
-    'PASSWORD':'PASSWORD',
+        'NAME': 'dkhelp',
+        'USER': 'moringa',
+    'PASSWORD':'0723120546',
     }
 }
 
@@ -141,4 +141,3 @@ LOGIN_REDIRECT_URL = "/"
 LOGIN_URL ='login'
 
 django_heroku.settings(locals())
-
