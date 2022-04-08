@@ -12,14 +12,14 @@ class Profile(models.Model):
 import datetime as dt
 class Post(models.Model):
     user = models.ForeignKey(Account, on_delete=models.PROTECT,null="False",related_name='user_images')
-    name = models.CharField(max_length=40)
+    title = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
     posted_on = models.DateTimeField(auto_now_add=True)
-    liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
-    comment = models.IntegerField(blank=True,null=True,default=True)
-    tag=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
-    answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
-    postslikes= models.IntegerField(blank=True,null=True,default=True)
+    # liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
+    # comment = models.IntegerField(blank=True,null=True,default=True)
+    # tag=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
+    # answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
+    # postslikes= models.IntegerField(blank=True,null=True,default=True)
     
     
 
@@ -55,7 +55,7 @@ class Post(models.Model):
       return self.postslikes.count()
   
     def __str__(self):
-            return self.name
+            return self.title
     
        
 class Tag(models.Model):
@@ -73,14 +73,13 @@ class Tag(models.Model):
 reactions={('Like','Like'),('Unlike','Unlike')}
     
 class Comments(models.Model):
-    question = models.ForeignKey(Post,on_delete=models.CASCADE)
-    user = models.ForeignKey(Account,on_delete = models.CASCADE,null="False")
-    name = models.CharField(max_length=255)
-    reply = models.TextField()
-    posted_on = models.DateTimeField(auto_now_add=True)
-    
-    def __str__(self):
-         return '%s - %s' % (self.post.name, self.name)
+     post = models.ForeignKey(Post,related_name="comments" ,null=True,on_delete=models.CASCADE)
+     name=models.CharField(max_length=100)
+     body = models.TextField(max_length=500)
+     date_added = models.DateTimeField(auto_now_add=True)
+
+     def __str__(self):
+         return '%s - %s' % (self.post.title,self.name)
     
     
 class Like(models.Model):

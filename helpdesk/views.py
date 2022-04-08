@@ -4,18 +4,20 @@ from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import LikesForm, CommentsForm
+from .forms import LikesForm, CommentsForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from .models import Profile,Comments
-from .forms import QuestionForm
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth import login, views, forms
+from . import models
+
+
+
 
 def home(request):
     return render(request, 'index.html', {})
-
-# Create your views here.
+    
 def my_profile(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
@@ -26,7 +28,7 @@ def my_profile(request):
 def update_profile_form(request):
 
     context={}
-    return render(request, 'updateProfile.html',context)
+    return render(request, 'Update_profile.html',context)
 
 @login_required(login_url='/accounts/login/')
 def update_profile(request):
@@ -62,11 +64,21 @@ def update_profile(request):
     else:
         return render(request, "Question_app/profile.html")
 
+#display Questions
+def questions(request):
+    all_questions=models.Post.objects.all()
+    return render(request,'all_questions.html', {'questions': all_questions})
+#details
+def details(request,id):
+    obj=get_object_or_404(Post,pk=id)
+    return render(request,'question-details.html', {'obj': obj})
+
+
 
 def post(request):
-    form=QuestionForm()
+    form=PostForm()
     if(request.method=='POST'):
-        form_results=QuestionForm(request.POST)
+        form_results=PostForm(request.POST)
         if form_results.is_valid():
             form_results.save()
             return redirect('/')
@@ -77,9 +89,9 @@ def post(request):
 def add_question(request): 
 
     if request.user.is_staff:
-        form=QuestionForm()
+        form=PostForm()
         if(request.method=='POST'):
-            form_results=QuestionForm(request.POST)
+            form_results=PostForm(request.POST)
             if form_results.is_valid():
                 form_results.save()
                 return redirect('/')
@@ -106,7 +118,6 @@ def search(request):
 
 def likes(request,post_id):
   likesForm = LikesForm()
-  #  CRUD     
   obj1=Like.objects.create(user=request.user,post=get_object_or_404(Post,pk=post_id),likes=1)
   obj1.save()
   print(obj1)
