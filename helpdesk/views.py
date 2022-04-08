@@ -126,4 +126,4 @@ def comments(request,post_id):
 
 def tags(request):
     tag = Tag.objects.all()
-    return render(request, 'questions/tags.html')
+    return render(request, 'questions/tags.html',{'tags':tag})

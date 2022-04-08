@@ -1,43 +1,16 @@
 {%extends 'base.html'%}
 
 {% block content %}
-<br><br><br><br> <br>
-{% for tags in tag %}
-<div class="tag-card px-3 pt-4 pb-3 h-100 d-flex flex-column">
-    <div class="d-flex">
-        <div class="category">
-            <a href="" class="read-more text-sm ms-auto badge bg-primary text-white">{{tags.title}}</a>
-        </div>
-        <div class="date ms-auto">
-            <span class="text-muted">{{tags.stage}}</span>
-        </div>
-    </div>
-    <div class="details pt-3 flex-grow-1 d-flex flex-column justify-content-between">
-        <div class="">
-            <a href="" class="title fw-bold fs-4">
-                {{tags.title}}
-            </a>
-            <p class="description text-muted text-sm">
-                {{tags.description}}
-            </p>
-        </div>
 
-        <div class="">
-            <div class="voting d-flex align-items-center justify-content-between">
-                <div class="">
-                    <a href="" class="btn d-flex align-items-center">
-                       
-                        {% comment %} <span class="text-xxs ps-1">{{post.questions.count()}}</span> {% endcomment %}
-                    </a>
-                </div>
-                
-            </div>
-    
-            <div class="dropdown-divider"></div>
-    
-           
-        </div>
+{% for tag in tags %}
+<div class="tag-card px-3 pt-4 pb-3 h-100 d-flex flex-column" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{tag.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{tag.stage}}</h6>
+      <p class="card-text"> {{tag.description}}</p>
+      <a href="#" class="card-link">{{tag.language}}</a>
+      <a href="#" class="card-link text-muted">Another link</a>
     </div>
-</div>
+  </div>
 {% endfor %}
 {% endblock %}
