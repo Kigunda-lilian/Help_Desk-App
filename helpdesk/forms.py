@@ -3,7 +3,7 @@ from django import forms
 from . models import Post,Profile,Comments,Like
 
 
-class QuestionForm(ModelForm):
+class PostForm(ModelForm):
     class Meta:
         model=Post
         fields="__all__"
