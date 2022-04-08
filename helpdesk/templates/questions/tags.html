@@ -3,14 +3,18 @@
 {% block content %}
 
 {% for tag in tags %}
-<div class="tag-card px-3 pt-4 pb-3 h-100 d-flex flex-column" style="width: 18rem;">
+<div class="column md 10">
+<div class="row d-flex">
+<div class="card mt-2 mb-4" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{tag.title}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{tag.stage}}</h6>
-      <p class="card-text"> {{tag.description}}</p>
+      <p class="card-text"> {{tag.Description}}</p>
       <a href="#" class="card-link">{{tag.language}}</a>
-      <a href="#" class="card-link text-muted">Another link</a>
+      <a href="#" class="card-link">Another link</a>
     </div>
   </div>
+</div>
+</div>
 {% endfor %}
 {% endblock %}
