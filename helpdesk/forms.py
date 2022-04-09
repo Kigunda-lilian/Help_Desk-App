@@ -1,12 +1,16 @@
 from django.forms import ModelForm
 from django import forms
-from . models import Post,Profile,Comments,Like
+from . models import Post,Profile,Comment,Like
 
 
 class PostForm(ModelForm):
     class Meta:
         model=Post
         fields="__all__"
+        widgets = {
+      'title': forms.TextInput(attrs={'class':'form-control'}),
+      'question': forms.Textarea(attrs={'class':'form-control'}),
+    }
 
 
 
@@ -15,10 +19,13 @@ class ProfileForm(forms.ModelForm):
     model = Profile
     exclude = ['user']
 
-class CommentsForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
+  body = forms.CharField(widget=forms.Textarea(attrs={'rows':4,
+  }))
   class Meta:
-    model = Comments
-    exclude = ['username', 'post']
+    model = Comment
+    fields = ['body']
+    
     
 class LikesForm(forms.Form):
   class Meta:

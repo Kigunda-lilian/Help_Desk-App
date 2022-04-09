@@ -1,32 +1,19 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
     <p>Posted by: {{ obj.user.username }} </p>
     <h1> {{ obj.question }}? </h1>
-    <p>Answers</p>
-    <a class="btn-primary btn-lg" href="">Post Your Answer</a>
-    {% if not obj.comments.all %}
-        <div class="card">
-            <div class="card-header">
-                <h6>No Answers Yet...</h6>
-            </div>
-        </div>
+    
+    <h2>{{ comments.count }} Answer {{comments|pluralize}} </h2>
+    {% for comment in comments %}
+        <figure>
+            <blockquote class="blockquote">
+            <p>{{comment.body}}</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">by<cite title="Source Title">{{comment.user|capfirst}}</cite>
+            </figcaption>
+        </figure>
+    {% endfor %}
+   
         
-        <a href="">Answer This Question</a>
-    {% else %}
-        {% for comment in obj.comments.all %}
-            <strong>
-                Answered by: {{ comment.name}}-
-                {{ comment.date_added}}
-            </strong>  
-            <br>  
-            <div class="card">
-                <div class="card-header">
-                    <p>{{ comment.body}}</p>
-                </div>
-            </div>
-            
-        {% endfor %}
-        
-    {% endif %}
 {% endblock %}

@@ -1,5 +1,7 @@
 from django.db import models
 from authentication.models import Account
+from django.db.models.signals import post_save, post_delete
+# from notifications.models import Notification
 
 class Profile(models.Model):
     prof_pic = models.ImageField(upload_to='images/', default='default.png')
@@ -72,14 +74,15 @@ class Tag(models.Model):
     
 reactions={('Like','Like'),('Unlike','Unlike')}
     
-class Comments(models.Model):
+class Comment(models.Model):
      post = models.ForeignKey(Post,related_name="comments" ,null=True,on_delete=models.CASCADE)
-     name=models.CharField(max_length=100)
+     user=models.ForeignKey(Account,on_delete=models.CASCADE)
      body = models.TextField(max_length=500)
-     date_added = models.DateTimeField(auto_now_add=True)
+     date= models.DateTimeField(auto_now_add=True)
 
      def __str__(self):
-         return '%s - %s' % (self.post.title,self.name)
+         return '{}-{}'.format(self.post.title, str(self.user.username))
+    
     
     
 class Like(models.Model):

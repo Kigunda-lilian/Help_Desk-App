@@ -1,16 +1,17 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Like, Post,Profile, Comments
+from .models import Like, Post,Profile, Comment
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import LikesForm, CommentsForm,PostForm
+from .forms import LikesForm, CommentForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
-from .models import Profile,Comments
+from .models import Profile,Comment
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth import login, views, forms
 from . import models
+from django.utils.text import slugify
 
 
 
@@ -70,10 +71,15 @@ def questions(request):
     return render(request,'all_questions.html', {'questions': all_questions})
 #details
 def details(request,id):
-    obj=get_object_or_404(Post,pk=id)
-    return render(request,'question-details.html', {'obj': obj})
-
-
+    post=get_object_or_404(Post,pk=id)
+    comments = Comment.objects.filter(post=post).order_by('-id')
+    context = {
+        'post': post,
+        'comments':comments
+    }
+    
+   
+    return render(request, 'question-details.html', context)
 
 def post(request):
     form=PostForm()
@@ -102,17 +108,17 @@ def add_question(request):
 
 @login_required(login_url="/accounts/login/")
 def search(request):
-    questions = Comments.objects.all()
+    questions = Comment.objects.all()
     if 'query' in request.GET and request.GET["query"]:
         search_term = request.GET.get("query")
-        searched_results = Comments.objects.filter(question__icontains=search_term)
+        searched_results = Comment.objects.filter(question__icontains=search_term)
         message = f"Search For: {search_term}"
         context = {"message": message, "businesses": searched_results}
         return render(request, "Question_app/search.html", context)
     else:
         message = "You haven't searched for any term"
         context = {"message": message,'questions':questions}
-        return render(request, "Question_app/search.html", context)
+        return render(request, "search.html", context)
 
 
 
@@ -123,14 +129,4 @@ def likes(request,post_id):
   print(obj1)
   return redirect('')
 
-def comments(request,post_id):
-  commentsForm = CommentsForm()
-  if request.method == 'POST':
-    commentsForm = CommentsForm(request.POST)
-    if commentsForm.is_valid():
-      form = commentsForm.save(commit=False)
-      form.user=request.user
-      form.post = get_object_or_404(Post,pk=post_id)
-      form.save()
-  
-  return redirect('')
+
