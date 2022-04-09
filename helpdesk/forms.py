@@ -2,12 +2,6 @@ from django.forms import ModelForm
 from django import forms
 from . models import Post,Profile,Comments,Like
 
-<<<<<<< HEAD
-
-class PostForm(ModelForm):
-    class Meta:
-        model=Post
-=======
 from helpdesk.views import Post
 from . models import Comments,Profile,Like,Post
 
@@ -15,7 +9,6 @@ from . models import Comments,Profile,Like,Post
 class PostForm(ModelForm):
     class Meta:
         model=Comments
->>>>>>> 46f02dcd8b3401a94ef8676da8ed6fbc47913129
         fields="__all__"
 
 
