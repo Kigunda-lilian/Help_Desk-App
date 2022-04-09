@@ -1,5 +1,6 @@
+
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Like, Post,Profile, Comments
+from .models import Like, Post,Profile, Comments,Tag
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
@@ -134,3 +135,7 @@ def comments(request,post_id):
       form.save()
   
   return redirect('')
+
+def tags(request):
+    tag = Tag.objects.all()
+    return render(request, 'questions/tags.html',{'tags':tag})
