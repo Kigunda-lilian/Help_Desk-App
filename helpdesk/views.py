@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Like, Post,Profile, Comments,Tag
@@ -6,10 +7,15 @@ from .models import Like, Post,Profile, Comments,Tag
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Like, Post,Profile, Comments
 >>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
+=======
+from django.shortcuts import render,redirect,get_object_or_404
+from .models import Like, Post,Profile, Comments,Tag
+>>>>>>> 46f02dcd8b3401a94ef8676da8ed6fbc47913129
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 <<<<<<< HEAD
 from .forms import LikesForm, CommentForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
@@ -21,8 +27,12 @@ from .forms import LikesForm, CommentsForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from .models import Profile,Comments
 >>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
+=======
+from .forms import LikesForm, CommentForm,PostForm
+from django.http import HttpResponse,Http404,HttpResponseRedirect
+from .models import Profile,Comments
+>>>>>>> 46f02dcd8b3401a94ef8676da8ed6fbc47913129
 from django.core.exceptions import ObjectDoesNotExist
-
 from django.contrib.auth import login, views, forms
 from . import models
 
@@ -57,9 +67,13 @@ def update_profile(request):
 
         profile_image = request.FILES["profile_pic"]
 <<<<<<< HEAD
+<<<<<<< HEAD
       
 =======
 >>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
+=======
+      
+>>>>>>> 46f02dcd8b3401a94ef8676da8ed6fbc47913129
         profile_url = profile_image["url"]
         user = User.objects.get(id=current_user.id)
         if Profile.objects.filter(user_id=current_user.id).exists():
@@ -94,10 +108,14 @@ def details(request,id):
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def add_question(request):
 =======
 def post(request):
 >>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
+=======
+def add_question(request):
+>>>>>>> 46f02dcd8b3401a94ef8676da8ed6fbc47913129
     form=PostForm()
     if(request.method=='POST'):
         form_results=PostForm(request.POST)
@@ -141,9 +159,13 @@ def search(request):
 def likes(request,post_id):
   likesForm = LikesForm()
 <<<<<<< HEAD
+<<<<<<< HEAD
   #  CRUD     
 =======
 >>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
+=======
+  #  CRUD     
+>>>>>>> 46f02dcd8b3401a94ef8676da8ed6fbc47913129
   obj1=Like.objects.create(user=request.user,post=get_object_or_404(Post,pk=post_id),likes=1)
   obj1.save()
   print(obj1)
@@ -161,9 +183,15 @@ def comments(request,post_id):
   
   return redirect('')
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 46f02dcd8b3401a94ef8676da8ed6fbc47913129
 
 def tags(request):
     tag = Tag.objects.all()
     return render(request, 'questions/tags.html',{'tags':tag})
+<<<<<<< HEAD
 =======
 >>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
+=======
+>>>>>>> 46f02dcd8b3401a94ef8676da8ed6fbc47913129
