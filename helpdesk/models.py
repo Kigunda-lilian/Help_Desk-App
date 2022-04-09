@@ -2,7 +2,7 @@ from django.db import models
 from authentication.models import Account
 
 class Profile(models.Model):
-    profile_pic = models.ImageField(upload_to='images/', default='default.png')
+    prof_pic = models.ImageField(upload_to='images/', default='default.png')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
     user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='profile')
     def __str__(self):
@@ -12,7 +12,7 @@ class Profile(models.Model):
 import datetime as dt
 class Post(models.Model):
     user = models.ForeignKey(Account, on_delete=models.PROTECT,null="False",related_name='user_images')
-    name = models.CharField(max_length=40)
+    title = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
     posted_on = models.DateTimeField(auto_now_add=True)
     liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
@@ -55,7 +55,7 @@ class Post(models.Model):
       return self.postslikes.count()
   
     def __str__(self):
-            return self.name
+            return self.title
     
        
 class Tag(models.Model):

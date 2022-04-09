@@ -18,10 +18,14 @@ class Migration(migrations.Migration):
             name='Comments',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('reply', models.TextField()),
+                ('title', models.CharField(max_length=40)),
+                ('question', models.TextField(max_length=280)),
                 ('posted_on', models.DateTimeField(auto_now_add=True)),
+                ('user', models.ForeignKey(null='False', on_delete=django.db.models.deletion.PROTECT, related_name='user_images', to=settings.AUTH_USER_MODEL)),
             ],
+            options={
+                'ordering': ['posted_on'],
+            },
         ),
         migrations.CreateModel(
             name='Tag',
@@ -33,6 +37,7 @@ class Migration(migrations.Migration):
                 ('Description', models.TextField()),
                 ('logical', models.BooleanField(default=True)),
                 ('technical', models.BooleanField(default=False)),
+                ('quiz', models.ForeignKey(null='True', on_delete=django.db.models.deletion.CASCADE, related_name='query', to='helpdesk.post')),
             ],
         ),
         migrations.CreateModel(
@@ -58,26 +63,23 @@ class Migration(migrations.Migration):
                 ('tag_title', models.ForeignKey(null='False', on_delete=django.db.models.deletion.PROTECT, to='helpdesk.tag')),
                 ('user', models.ForeignKey(null='False', on_delete=django.db.models.deletion.PROTECT, related_name='user_images', to=settings.AUTH_USER_MODEL)),
             ],
-            options={
-                'ordering': ['posted_on'],
-            },
         ),
         migrations.CreateModel(
             name='Like',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('response', models.CharField(choices=[('Unlike', 'Unlike'), ('Like', 'Like')], default='like', max_length=70)),
+                ('response', models.CharField(choices=[('Like', 'Like'), ('Unlike', 'Unlike')], default='like', max_length=70)),
                 ('user', models.ForeignKey(null='False', on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
-        migrations.AddField(
-            model_name='comments',
-            name='question',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='helpdesk.post'),
-        ),
-        migrations.AddField(
-            model_name='comments',
-            name='user',
-            field=models.ForeignKey(null='False', on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+        migrations.CreateModel(
+            name='Comments',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+                ('body', models.TextField(max_length=500)),
+                ('date_added', models.DateTimeField(auto_now_add=True)),
+                ('post', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='helpdesk.post')),
+            ],
         ),
     ]

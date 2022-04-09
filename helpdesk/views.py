@@ -1,20 +1,37 @@
+<<<<<<< HEAD
 
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Like, Post,Profile, Comments,Tag
+=======
+from django.shortcuts import render,redirect,get_object_or_404
+from .models import Like, Post,Profile, Comments
+>>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from .forms import LikesForm, CommentForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from .models import Profile,Comments
 
 
+=======
+from .forms import LikesForm, CommentsForm,PostForm
+from django.http import HttpResponse,Http404,HttpResponseRedirect
+from .models import Profile,Comments
+>>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth import login, views, forms
+from . import models
 
-# Create your views here.
+
+
+
+def home(request):
+    return render(request, 'index.html', {})
+    
 def my_profile(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
@@ -25,7 +42,7 @@ def my_profile(request):
 def update_profile_form(request):
 
     context={}
-    return render(request, 'updateProfile.html',context)
+    return render(request, 'Update_profile.html',context)
 
 @login_required(login_url='/accounts/login/')
 def update_profile(request):
@@ -39,7 +56,10 @@ def update_profile(request):
         name = request.POST["first_name"] + " " + request.POST["last_name"]
 
         profile_image = request.FILES["profile_pic"]
+<<<<<<< HEAD
       
+=======
+>>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
         profile_url = profile_image["url"]
         user = User.objects.get(id=current_user.id)
         if Profile.objects.filter(user_id=current_user.id).exists():
@@ -62,8 +82,22 @@ def update_profile(request):
     else:
         return render(request, "Question_app/profile.html")
 
+#display Questions
+def questions(request):
+    all_questions=models.Post.objects.all()
+    return render(request,'all_questions.html', {'questions': all_questions})
+#details
+def details(request,id):
+    obj=get_object_or_404(Post,pk=id)
+    return render(request,'question-details.html', {'obj': obj})
 
+
+
+<<<<<<< HEAD
 def add_question(request):
+=======
+def post(request):
+>>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
     form=PostForm()
     if(request.method=='POST'):
         form_results=PostForm(request.POST)
@@ -71,7 +105,7 @@ def add_question(request):
             form_results.save()
             return redirect('/')
     context={'form':form}
-    return render(request,'Question_app/add_question.html',context)
+    return render(request,'add_question.html',context)
 
  
 def add_question(request): 
@@ -106,7 +140,10 @@ def search(request):
 
 def likes(request,post_id):
   likesForm = LikesForm()
+<<<<<<< HEAD
   #  CRUD     
+=======
+>>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7
   obj1=Like.objects.create(user=request.user,post=get_object_or_404(Post,pk=post_id),likes=1)
   obj1.save()
   print(obj1)
@@ -123,7 +160,10 @@ def comments(request,post_id):
       form.save()
   
   return redirect('')
+<<<<<<< HEAD
 
 def tags(request):
     tag = Tag.objects.all()
     return render(request, 'questions/tags.html',{'tags':tag})
+=======
+>>>>>>> c0de2db792b184b7a83b3f55980be40b05d5ecc7

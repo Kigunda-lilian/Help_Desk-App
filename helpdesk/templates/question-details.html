@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p>Posted by: {{ obj.user.username }} </p>
+    <h1> {{ obj.question }}? </h1>
+    <p>Answers</p>
+    <a class="btn-primary btn-lg" href="">Post Your Answer</a>
+    {% if not obj.comments.all %}
+        <div class="card">
+            <div class="card-header">
+                <h6>No Answers Yet...</h6>
+            </div>
+        </div>
+        
+        <a href="">Answer This Question</a>
+    {% else %}
+        {% for comment in obj.comments.all %}
+            <strong>
+                Answered by: {{ comment.name}}-
+                {{ comment.date_added}}
+            </strong>  
+            <br>  
+            <div class="card">
+                <div class="card-header">
+                    <p>{{ comment.body}}</p>
+                </div>
+            </div>
+            
+        {% endfor %}
+        
+    {% endif %}
+{% endblock %}
