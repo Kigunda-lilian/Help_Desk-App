@@ -1,14 +1,13 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Like, Post,Profile, Comments
+from .models import Like, Post,Profile, Comments,Tag
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import LikesForm, CommentsForm,PostForm
+from .forms import LikesForm, CommentForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
-from .models import Profile,Comments
+from .models import Profile,Comment
 from django.core.exceptions import ObjectDoesNotExist
-
 from django.contrib.auth import login, views, forms
 from . import models
 
@@ -42,6 +41,7 @@ def update_profile(request):
         name = request.POST["first_name"] + " " + request.POST["last_name"]
 
         profile_image = request.FILES["profile_pic"]
+      
         profile_url = profile_image["url"]
         user = User.objects.get(id=current_user.id)
         if Profile.objects.filter(user_id=current_user.id).exists():
@@ -75,7 +75,7 @@ def details(request,id):
 
 
 
-def post(request):
+def add_question(request):
     form=PostForm()
     if(request.method=='POST'):
         form_results=PostForm(request.POST)
@@ -118,15 +118,16 @@ def search(request):
 
 def likes(request,post_id):
   likesForm = LikesForm()
+  #  CRUD     
   obj1=Like.objects.create(user=request.user,post=get_object_or_404(Post,pk=post_id),likes=1)
   obj1.save()
   print(obj1)
   return redirect('')
 
 def comments(request,post_id):
-  commentsForm = CommentsForm()
+  commentsForm = CommentForm()
   if request.method == 'POST':
-    commentsForm = CommentsForm(request.POST)
+    commentsForm = CommentForm(request.POST)
     if commentsForm.is_valid():
       form = commentsForm.save(commit=False)
       form.user=request.user
@@ -134,3 +135,7 @@ def comments(request,post_id):
       form.save()
   
   return redirect('')
+
+def tags(request):
+    tag = Tag.objects.all()
+    return render(request, 'questions/tags.html',{'tags':tag})
