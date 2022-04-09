@@ -6,7 +6,6 @@ admin.site.register(Profile)
 admin.site.register(Tag)
 admin.site.register(Post)
 admin.site.register(Like)
-admin.site.register(Profile)
 
 
 

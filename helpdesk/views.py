@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import LikesForm, CommentForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
-from .models import Profile,Comment
+from .models import Profile,Comments
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import login, views, forms
 from . import models

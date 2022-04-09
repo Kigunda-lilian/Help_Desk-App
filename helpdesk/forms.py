@@ -18,7 +18,7 @@ class ProfileForm(forms.ModelForm):
     model = Profile
     exclude = ['user']
 
-class CommentsForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
   class Meta:
     model = Comments
     exclude = ['username', 'post']
@@ -31,7 +31,7 @@ class LikesForm(forms.Form):
 class UpdateProfileForm(forms.ModelForm):
   class Meta:
     model = Profile
-    fields=['profile_pic','bio']
+    fields=['prof_pic','bio']
 
 class AddPostForm(forms.ModelForm):
   class Meta:
