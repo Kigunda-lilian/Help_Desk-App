@@ -83,14 +83,14 @@ WSGI_APPLICATION = 'Helpdesk.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'mutwiri',
-#         'USER': 'moringa',
-#         'PASSWORD':'12345',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mutwiri',
+        'USER': 'moringa',
+        'PASSWORD':'12345',
+    }
+}
 
 
 # Password validation
