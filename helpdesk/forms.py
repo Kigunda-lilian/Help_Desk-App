@@ -2,10 +2,13 @@ from django.forms import ModelForm
 from django import forms
 from . models import Post,Profile,Comments,Like
 
+from helpdesk.views import Post
+from . models import Comments,Profile,Like,Post
+
 
 class PostForm(ModelForm):
     class Meta:
-        model=Post
+        model=Comments
         fields="__all__"
 
 
@@ -28,9 +31,9 @@ class LikesForm(forms.Form):
 class UpdateProfileForm(forms.ModelForm):
   class Meta:
     model = Profile
-    fields=['prof_pic','bio']
+    fields=['profile_pic','bio']
 
-class AddQuestionForm(forms.ModelForm):
+class AddPostForm(forms.ModelForm):
   class Meta:
     model = Post
     exclude = []
