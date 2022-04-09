@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Questions</h1>
+    <ul>
+        {% for question in questions %}
+            <p>{{ question.name }}</p>
+            <a href=" {% url 'details' question.id %} "><h3>{{ question.question }}</h3></a>
+            <div class="row">          
+              <div class="col-ms-3">
+                <p class="text-muted">
+                    posted: {{question.posted_on}}
+                </p>
+              </div>
+            </div>
+        {% endfor %}
+    </ul>
+   
+
+{% endblock %}

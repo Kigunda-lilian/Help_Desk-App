@@ -1,21 +1,23 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import post,Profile, Review
+from .models import Like, Post,Profile, Comments
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import LikesForm, CommentsForm
+from .forms import LikesForm, CommentsForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
-from .models import Profile,QuestionAnswer
-from .forms import QuestionForm
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+from .models import Profile,Comments
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth import login, views, forms
+from . import models
 
-# Create your views here.
+
+
+
+def home(request):
+    return render(request, 'index.html', {})
+    
 def my_profile(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
@@ -26,7 +28,7 @@ def my_profile(request):
 def update_profile_form(request):
 
     context={}
-    return render(request, 'updateProfile.html',context)
+    return render(request, 'Update_profile.html',context)
 
 @login_required(login_url='/accounts/login/')
 def update_profile(request):
@@ -40,7 +42,6 @@ def update_profile(request):
         name = request.POST["first_name"] + " " + request.POST["last_name"]
 
         profile_image = request.FILES["profile_pic"]
-        profile_image = cloudinary.uploader.upload(profile_image)
         profile_url = profile_image["url"]
         user = User.objects.get(id=current_user.id)
         if Profile.objects.filter(user_id=current_user.id).exists():
@@ -63,24 +64,34 @@ def update_profile(request):
     else:
         return render(request, "Question_app/profile.html")
 
+#display Questions
+def questions(request):
+    all_questions=models.Post.objects.all()
+    return render(request,'all_questions.html', {'questions': all_questions})
+#details
+def details(request,id):
+    obj=get_object_or_404(Post,pk=id)
+    return render(request,'question-details.html', {'obj': obj})
 
-def add_question(request):
-    form=QuestionForm()
+
+
+def post(request):
+    form=PostForm()
     if(request.method=='POST'):
-        form_results=QuestionForm(request.POST)
+        form_results=PostForm(request.POST)
         if form_results.is_valid():
             form_results.save()
             return redirect('/')
     context={'form':form}
-    return render(request,'Question_app/add_question.html',context)
+    return render(request,'add_question.html',context)
 
  
 def add_question(request): 
 
     if request.user.is_staff:
-        form=QuestionForm()
+        form=PostForm()
         if(request.method=='POST'):
-            form_results=QuestionForm(request.POST)
+            form_results=PostForm(request.POST)
             if form_results.is_valid():
                 form_results.save()
                 return redirect('/')
@@ -91,10 +102,10 @@ def add_question(request):
 
 @login_required(login_url="/accounts/login/")
 def search(request):
-    questions = QuestionAnswer.objects.all()
+    questions = Comments.objects.all()
     if 'query' in request.GET and request.GET["query"]:
         search_term = request.GET.get("query")
-        searched_results = QuestionAnswer.objects.filter(question__icontains=search_term)
+        searched_results = Comments.objects.filter(question__icontains=search_term)
         message = f"Search For: {search_term}"
         context = {"message": message, "businesses": searched_results}
         return render(request, "Question_app/search.html", context)
@@ -107,8 +118,7 @@ def search(request):
 
 def likes(request,post_id):
   likesForm = LikesForm()
-  #  CRUD     
-  obj1=Like.objects.create(user=request.user,post=get_object_or_404(post,pk=post_id),likes=1)
+  obj1=Like.objects.create(user=request.user,post=get_object_or_404(Post,pk=post_id),likes=1)
   obj1.save()
   print(obj1)
   return redirect('')
@@ -120,7 +130,7 @@ def comments(request,post_id):
     if commentsForm.is_valid():
       form = commentsForm.save(commit=False)
       form.user=request.user
-      form.post = get_object_or_404(post,pk=post_id)
+      form.post = get_object_or_404(Post,pk=post_id)
       form.save()
   
   return redirect('')
