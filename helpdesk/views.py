@@ -195,7 +195,9 @@ class PostDetails(APIView):
        
     #delete a question
     def delete(self,request,pk):
-        pass
+       one_question = Post.objects.get(pk=pk)
+       one_question.delete()
+       return Response({"message":"question deleted successfully!"},status=status.HTTP_204_NO_CONTENT)
         
     #update a question
     def put(self,request,pk):
