@@ -1,4 +1,3 @@
-from turtle import title
 from django.db import models
 from authentication.models import Account
 
@@ -13,11 +12,11 @@ class Profile(models.Model):
 import datetime as dt
 class Post(models.Model):
     user = models.ForeignKey(Account, on_delete=models.PROTECT,null="False",related_name='user_images')
-    question_title= models.CharField(max_length=40)
+    question_title = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
     posted_on = models.DateTimeField(auto_now_add=True)
     comment = models.IntegerField(blank=True,null=True,default=True)
-    tag_title=models.CharField(max_length=40)
+    tag_title=models.CharField(max_length=40,null="False")
     postslikes= models.BooleanField(blank=True,null=True,default=True)
     
     
@@ -81,5 +80,11 @@ class Comments(models.Model):
          return '%s - %s' % (self.question.question_title, self.name)
     
     
+class Like(models.Model):
+    response = models.CharField(choices=reactions,default='like',max_length=70)
+    user = models.ForeignKey(Account,on_delete = models.CASCADE,null="False")
+    
+    def __str__(self):
+        return self.response
 
 
