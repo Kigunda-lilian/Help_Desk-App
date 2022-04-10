@@ -153,3 +153,11 @@ def tags(request):
     return render(request, 'questions/tags.html',{'tags':tag})
 
 
+#Rest API
+class ProfileList(APIView): # get all profiles
+   
+    def get(self, request):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer( all_profiles , many=True)
+        return Response(serializers.data)
+  
