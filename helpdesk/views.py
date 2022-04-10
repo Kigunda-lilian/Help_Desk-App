@@ -162,7 +162,7 @@ class ProfileList(APIView): # get all profiles
         serializers = ProfileSerializer( all_profiles , many=True)
         return Response(serializers.data)
 
-class ProfileList(APIView): # get a single profile
+class ProfileDetail(APIView): # get a single profile
    
     def get(self, request,pk):
         one_profile = Profile.objects.get(pk=pk)
