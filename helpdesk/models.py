@@ -12,7 +12,7 @@ class Profile(models.Model):
 import datetime as dt
 class Post(models.Model):
     user = models.ForeignKey(Account, on_delete=models.PROTECT,null="False",related_name='user_images')
-    question_title = models.CharField(max_length=40)
+    title = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
     posted_on = models.DateTimeField(auto_now_add=True)
     comment = models.IntegerField(blank=True,null=True,default=True)
@@ -77,7 +77,7 @@ class Comments(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-         return '%s - %s' % (self.question.question_title, self.name)
+         return '%s - %s' % (self.question.title, self.name)
     
     
 class Like(models.Model):
