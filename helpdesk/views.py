@@ -188,8 +188,35 @@ class PostList(APIView):
     def get(self,request):
         all_questions = Post.objects.all()
         serializers = PostSerializer( all_questions , many=True)
-        return Response(serializers.data)
+        return Response(serializers.data,status=status.HTTP_200_OK)
      
         
+class PostDetails(APIView): 
+       
+    #delete a question
+    def delete(self,request,pk):
+        pass
         
+    #update a question
+    def put(self,request,pk):
+       one_question = Post.objects.get(pk=pk)
+       
+       serializer=PostSerializer(one_question,data=request.data)
+       
+       # check if data is valid
+       if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+       else:
+           return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+       
+      
+    #get a single of questions
+    def get(self,request,pk):
+        one_question = Post.objects.get(pk=pk)
+        serializers = PostSerializer( one_question , many=True)
+        return Response(serializers.data,status=status.HTTP_200_OK)
+     
+        
+               
 
