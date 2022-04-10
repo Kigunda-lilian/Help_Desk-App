@@ -15,6 +15,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import login, views, forms
 from . import models
 
+#API
+from django.http import JsonResponse
+from rest_framework import status
+from django.http import Http404
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer
+
 
 
 
@@ -143,3 +151,5 @@ def comments(request,post_id):
 def tags(request):
     tag = Tag.objects.all()
     return render(request, 'questions/tags.html',{'tags':tag})
+
+
