@@ -167,3 +167,11 @@ class ProfileList(APIView): # get a single profile
         one_profile = Profile.objects.get(pk=pk)
         serializers = ProfileSerializer( one_profile , many=True)
         return Response(serializers.data)
+    
+#create a question
+def post(self,request):
+    pass
+
+#get a list of questions
+def get(self,request):
+    pass
