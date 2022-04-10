@@ -1,3 +1,4 @@
+from turtle import title
 from django.db import models
 from authentication.models import Account
 
@@ -12,14 +13,12 @@ class Profile(models.Model):
 import datetime as dt
 class Post(models.Model):
     user = models.ForeignKey(Account, on_delete=models.PROTECT,null="False",related_name='user_images')
-    title = models.CharField(max_length=40)
+    question_title= models.CharField(max_length=40)
     question=models.TextField(max_length=280)
     posted_on = models.DateTimeField(auto_now_add=True)
-    liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
     comment = models.IntegerField(blank=True,null=True,default=True)
-    # tag_title=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
-    # answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
-    postslikes= models.IntegerField(blank=True,null=True,default=True)
+    tag_title=models.CharField(max_length=40)
+    postslikes= models.BooleanField(blank=True,null=True,default=True)
     
     
 
@@ -48,7 +47,7 @@ class Post(models.Model):
         
     @property
     def saved_comments(self):
-        return self.comments.all()
+        return self.comment.all()
     
     @property
     def saved_likes(self):
@@ -63,7 +62,6 @@ class Tag(models.Model):
     stage= models.CharField(max_length=80)
     title=models.CharField(max_length=50,null="False")
     Description=models.TextField()
-    
     logical=models.BooleanField(default=True)
     technical=models.BooleanField(default=False)
     
@@ -80,14 +78,8 @@ class Comments(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-         return '%s - %s' % (self.question.name, self.name)
+         return '%s - %s' % (self.question.question_title, self.name)
     
     
-class Like(models.Model):
-    response = models.CharField(choices=reactions,default='like',max_length=70)
-    user = models.ForeignKey(Account,on_delete = models.CASCADE,null="False")
-    
-    def __str__(self):
-        return self.response
 
 
