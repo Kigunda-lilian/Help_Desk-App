@@ -168,8 +168,10 @@ class ProfileList(APIView): # get a single profile
         one_profile = Profile.objects.get(pk=pk)
         serializers = ProfileSerializer( one_profile , many=True)
         return Response(serializers.data)
-    
-#create a question
+
+class PostList(APIView): 
+       
+    #create a question
     def post(self,request):
         serializer = PostSerializer(data=request.data)
         
@@ -182,10 +184,12 @@ class ProfileList(APIView): # get a single profile
            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
        
        
-      
+    #get a list of questions
+    def get(self,request):
+        all_questions = Post.objects.all()
+        serializers = PostSerializer( all_questions , many=True)
+        return Response(serializers.data)
+     
         
         
 
-#get a list of questions
-def get(self,request):
-    pass
