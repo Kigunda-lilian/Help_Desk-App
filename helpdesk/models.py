@@ -17,7 +17,7 @@ class Post(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True)
     liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
     comment = models.IntegerField(blank=True,null=True,default=True)
-    tag_title=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
+    # tag_title=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
     # answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
     postslikes= models.IntegerField(blank=True,null=True,default=True)
     

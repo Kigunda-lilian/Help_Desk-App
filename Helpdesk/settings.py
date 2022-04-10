@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'authentication',
     'crispy_forms',
     'bootstrap5',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,14 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Helpdesk.wsgi.application'
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dkhelp',
-        'USER': 'moringa',
-    'PASSWORD':'0723120546',
-    }
-}
+
 
 
 # Database
@@ -87,7 +81,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': ('debug'),
+        'NAME': ('prodev'),
         'USER': ('moringa'),
         'PASSWORD':('1234'),
     }
