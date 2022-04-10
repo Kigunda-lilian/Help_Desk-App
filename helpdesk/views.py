@@ -22,6 +22,7 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer,PostSerializer,TagSerializer, CommentsSerializer
+from helpdesk import serializer
 
 
 
@@ -169,8 +170,21 @@ class ProfileList(APIView): # get a single profile
         return Response(serializers.data)
     
 #create a question
-def post(self,request):
-    pass
+    def post(self,request):
+        serializer = PostSerializer(data=request.data)
+        
+        
+         # check if data is valid
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+           return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+       
+       
+      
+        
+        
 
 #get a list of questions
 def get(self,request):
