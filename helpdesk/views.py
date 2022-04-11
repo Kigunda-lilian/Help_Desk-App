@@ -222,3 +222,54 @@ class PostDetails(APIView):
         
                
 
+class CommentsList(APIView): 
+       
+    # post a comment
+    def post(self,request):
+        serializer = CommentsSerializer(data=request.data)
+        
+        
+         # check if data is valid
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+           return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+       
+       
+    #get a list of comments
+    def get(self,request):
+        all_comment = Comments.objects.all()
+        serializers = CommentsSerializer( all_comment , many=True)
+        return Response(serializers.data,status=status.HTTP_200_OK)
+     
+        
+class CommentsDetails(APIView): 
+       
+    #delete a comment
+    def delete(self,request,pk):
+       one_comment =Comments.objects.get(pk=pk)
+       one_comment.delete()
+       return Response({"message":"comment deleted successfully!"},status=status.HTTP_204_NO_CONTENT)
+        
+    #update a comment
+    def put(self,request,pk):
+       one_comment = Comments.objects.get(pk=pk)
+       
+       serializer=CommentsSerializer(one_comment,data=request.data)
+       
+       # check if data is valid
+       if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+       else:
+           return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+       
+      
+    #get a single comment
+    def get(self,request,pk):
+        one_comment = Comments.objects.get(pk=pk)
+        serializers = CommentsSerializer( one_comment , many=True)
+        return Response(serializers.data,status=status.HTTP_200_OK)
+     
+        
