@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="row mt-5 pt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">About Us</h5>
+                  <p class="faq card-text">Help Desk App is a website application that
+                    is focused in making the life of programmers
+                   more easy.
+                   We are passionate in bringing solutions 
+                   accessible enough enjoy! because help desk
+                    is got you.Our team is dediated
+                    to put your needs onpoint 24/7.
+                   </p>
+                  <a href="#" class="btn btn-success">Post Your Question</a>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <img src=" {% static 'static/helpdesk/images/helpline.jpg' %} " alt="">
+        </div>
+    </div><br><br>
+    <style>
+        .faqs {
+          color:F8966C
+        }
+        .card-text {
+            color:F8966C
+          }
+        
+        
+    </style>
+    <div class="faqs container">
+        <h5 class=" d-flex justify-content-center">FAQs</h5>
+        <hr>
+        <div class="faq container_fluid justify-content-center "
+        <div class=" faq">
+            <a href="#" class="list-group-item list-group-item-action " aria-current="true">
+                How does HelpLine App Works?
+            </a>
+            
+            <a href="#" class="list card-text list-group-item list-group-item-action">What is the average time to find a solution?</a>
+            <a href="#" class=" card-text list-group-item list-group-item-action">How efficient and effective is Helpline Desk App?</a>
+            <a href="#" class="card-text list-group-item list-group-item-action">Can I trust Helpline App with my personal data?</a>
+            <a href="#" class="card-text list-group-item list-group-item-action">Can I be notified when a suggestion to my question is  replied?</a>
+          </div>
+        {% comment %} <p class="card-text">How does HelpLine App Works?</p>
+        <p class="card-text">What is the average time to find a solution?</p>
+        <p class="card-text">How efficient and effective is Helpline Desk App?</p>
+        <p class="card-text">Can I trust Helpline App with my personal data?</p>
+        <p class="card-text">Can I be notified when a suggestion to my question is  replied?</p> {% endcomment %}
+    </div>
+    </div>
+{% endblock %}
