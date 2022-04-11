@@ -15,11 +15,9 @@ class Post(models.Model):
     title = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
     posted_on = models.DateTimeField(auto_now_add=True)
-    # liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
-    # comment = models.IntegerField(blank=True,null=True,default=True)
-    # tag=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
-    # answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
-    # postslikes= models.IntegerField(blank=True,null=True,default=True)
+    comment = models.IntegerField(blank=True,null=True,default=True)
+    tag_title=models.CharField(max_length=40,null="False")
+    postslikes= models.BooleanField(blank=True,null=True,default=True)
     
     
 
@@ -48,7 +46,7 @@ class Post(models.Model):
         
     @property
     def saved_comments(self):
-        return self.comments.all()
+        return self.comment.all()
     
     @property
     def saved_likes(self):
@@ -63,7 +61,6 @@ class Tag(models.Model):
     stage= models.CharField(max_length=80)
     title=models.CharField(max_length=50,null="False")
     Description=models.TextField()
-    
     logical=models.BooleanField(default=True)
     technical=models.BooleanField(default=False)
     
