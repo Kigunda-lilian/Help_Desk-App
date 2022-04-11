@@ -14,12 +14,12 @@ urlpatterns = [
     #API
     path("api/profile/",ProfileList.as_view(),name="profileApi"),
     path("<int:pk>",ProfileDetail.as_view(),name="profiledetail"),
-    path("api/post/",PostList.as_view(),name="profileApi"),
-    path("<int:pk>",PostDetails.as_view(),name="profiledetail"),
-    path("api/comments/",CommentsList.as_view(),name="profileApi"),
-    path("<int:pk>",CommentsDetails.as_view(),name="profiledetail"),
-    path("api/tags/",TagList.as_view(),name="profileApi"),
-    path("<int:pk>",TagsDetails.as_view(),name="profiledetail"),
+    path("api/post/",PostList.as_view(),name="postApi"),
+    path("<int:pk>",PostDetails.as_view(),name="postdetail"),
+    path("api/comments/",CommentsList.as_view(),name="commentsApi"),
+    path("<int:pk>",CommentsDetails.as_view(),name="commentsdetail"),
+    path("api/tags/",TagList.as_view(),name="tagApi"),
+    path("<int:pk>",TagsDetails.as_view(),name="tagdetail"),
 ]
 
 
