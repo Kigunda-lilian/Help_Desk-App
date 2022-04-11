@@ -20,12 +20,13 @@ class ProfileForm(forms.ModelForm):
     exclude = ['user']
 
 class CommentForm(forms.ModelForm):
-  body = forms.CharField(widget=forms.Textarea(attrs={'rows':4,
-  }))
+
   class Meta:
     model = Comment
-    fields = ['body']
-    
+    fields = ('body',)
+    widgets = {
+      'body': forms.Textarea(attrs={'class':'form-control'}),
+    }
     
 class LikesForm(forms.Form):
   class Meta:

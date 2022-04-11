@@ -1,6 +1,7 @@
 from django.db import models
 from authentication.models import Account
 from django.db.models.signals import post_save, post_delete
+from django.urls import reverse
 # from notifications.models import Notification
 
 class Profile(models.Model):
@@ -13,19 +14,13 @@ class Profile(models.Model):
 
 import datetime as dt
 class Post(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.PROTECT,null="False",related_name='user_images')
+    post_owner = models.ForeignKey(Account, on_delete=models.PROTECT,null="False",related_name='user_images')
     title = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
     posted_on = models.DateTimeField(auto_now_add=True)
-    # liked= models.ManyToManyField(Account,default=None,blank=True,related_name='liked')
-    # comment = models.IntegerField(blank=True,null=True,default=True)
-    # tag=models.ForeignKey("Tag",on_delete = models.PROTECT,null="False")
-    # answers= models.ForeignKey('Comments',on_delete = models.CASCADE)
-    # postslikes= models.IntegerField(blank=True,null=True,default=True)
-    
-    
-
-    
+    likes = models.ManyToManyField(Account, blank=True, related_name='likes')
+    dislikes = models.ManyToManyField(Account, blank=True, related_name='dislikes')
+   
     def create_post(self):
             self.save()
 
@@ -34,6 +29,9 @@ class Post(models.Model):
         
     def update_post(self):
             self.update()
+
+    def get_absolute_url(self):
+        return reverse('questions')
         
     @classmethod
     def search_by_name(cls, search_term):
@@ -79,6 +77,7 @@ class Comment(models.Model):
      user=models.ForeignKey(Account,on_delete=models.CASCADE)
      body = models.TextField(max_length=500)
      date= models.DateTimeField(auto_now_add=True)
+     agreed = models.BooleanField('Agreed',default=False)
 
      def __str__(self):
          return '{}-{}'.format(self.post.title, str(self.user.username))

@@ -12,7 +12,25 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import login, views, forms
 from . import models
 from django.utils.text import slugify
+from django.contrib import messages
 
+
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.views import View
+
+
+
+#answers approval
+def approve_ans(request):
+    answers_list = Comment.objects.all().order_by('-id')
+    if request.user.is_superuser:
+        return render(request, 'approve_ans.html',{'answers_list': answers_list})
+
+    else:
+        messages.success(request,("You are not authorized to approve answers!"))
+        return redirect('home')
+    
+    return render(request, 'approve_ans.html')
 
 
 
@@ -73,9 +91,22 @@ def questions(request):
 def details(request,id):
     post=get_object_or_404(Post,pk=id)
     comments = Comment.objects.filter(post=post).order_by('-id')
+    comment_form = CommentForm
+    if request.method == 'POST':
+        
+        comment_form = CommentForm(request.POST or None)
+        if comment_form.is_valid():
+            body = request.POST.get('body')
+            comment = Comment.objects.create(post=post, user=request.user, body=body)
+            comment.save()
+            return HttpResponseRedirect(post.get_absolute_url())
+        else:
+            comment_form= CommentForm()
+
     context = {
         'post': post,
-        'comments':comments
+        'comments':comments,
+        'comment_form': comment_form,
     }
     
    
@@ -128,5 +159,66 @@ def likes(request,post_id):
   obj1.save()
   print(obj1)
   return redirect('')
+
+
+class AddLike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        post = Post.objects.get(pk=pk)
+
+        is_dislike = False
+
+        for dislike in post.dislikes.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+
+        if is_dislike:
+            post.dislikes.remove(request.user)
+
+        is_like = False
+
+        for like in post.likes.all():
+            if like == request.user:
+                is_like = True
+                break
+
+        if not is_like:
+            post.likes.add(request.user)
+
+        if is_like:
+            post.likes.remove(request.user)
+
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)
+
+class AddDislike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        post = Post.objects.get(pk=pk)
+
+        is_like = False
+
+        for like in post.likes.all():
+            if like == request.user:
+                is_like = True
+                break
+
+        if is_like:
+            post.likes.remove(request.user)
+
+        is_dislike = False
+
+        for dislike in post.dislikes.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+
+        if not is_dislike:
+            post.dislikes.add(request.user)
+
+        if is_dislike:
+            post.dislikes.remove(request.user)
+
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)
 
 
