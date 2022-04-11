@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from.views import ProfileList,ProfileDetail,PostList,PostDetails,CommentsDetails,CommentsList
+from.views import ProfileList,ProfileDetail,PostList,PostDetails,CommentsDetails,CommentsList,TagList,TagsDetails
 urlpatterns = [ 
     path('',views.home,name='home'),
     path("profile/", views.my_profile, name="profile"),
@@ -18,6 +18,8 @@ urlpatterns = [
     path("<int:pk>",PostDetails.as_view(),name="profiledetail"),
     path("api/comments/",CommentsList.as_view(),name="profileApi"),
     path("<int:pk>",CommentsDetails.as_view(),name="profiledetail"),
+    path("api/tags/",TagList.as_view(),name="profileApi"),
+    path("<int:pk>",TagsDetails.as_view(),name="profiledetail"),
 ]
 
 

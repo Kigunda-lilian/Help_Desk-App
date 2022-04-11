@@ -222,6 +222,58 @@ class PostDetails(APIView):
         
                
 
+class TagList(APIView): 
+       
+    # post a tag
+    def post(self,request):
+        serializer =TagSerializer(data=request.data)
+        
+        
+         # check if data is valid
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+           return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+       
+       
+    #get a list of tags
+    def get(self,request):
+        all_tags = Tag.objects.all()
+        serializers = TagSerializer( all_tags , many=True)
+        return Response(serializers.data,status=status.HTTP_200_OK)
+     
+        
+class TagsDetails(APIView): 
+       
+    #delete a tag
+    def delete(self,request,pk):
+       one_tag =Tag.objects.get(pk=pk)
+       one_tag.delete()
+       return Response({"message":"tag deleted successfully!"},status=status.HTTP_204_NO_CONTENT)
+        
+    #update a tag
+    def put(self,request,pk):
+       one_tag = Tag.objects.get(pk=pk)
+       
+       serializer=TagSerializer(one_tag,data=request.data)
+       
+       # check if data is valid
+       if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+       else:
+           return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+       
+      
+    #get a single tag
+    def get(self,request,pk):
+        one_tag = Tag.objects.get(pk=pk)
+        serializers = TagSerializer( one_tag , many=True)
+        return Response(serializers.data,status=status.HTTP_200_OK)
+     
+
+
 class CommentsList(APIView): 
        
     # post a comment
@@ -272,4 +324,4 @@ class CommentsDetails(APIView):
         serializers = CommentsSerializer( one_comment , many=True)
         return Response(serializers.data,status=status.HTTP_200_OK)
      
-        
+                
