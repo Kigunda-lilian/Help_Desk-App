@@ -70,14 +70,13 @@ class Tag(models.Model):
 reactions={('Like','Like'),('Unlike','Unlike')}
     
 class Comments(models.Model):
-    question = models.ForeignKey(Post,on_delete=models.CASCADE)
-    user = models.ForeignKey(Account,on_delete = models.CASCADE,null="False")
-    name = models.CharField(max_length=255)
-    reply = models.TextField()
-    posted_on = models.DateTimeField(auto_now_add=True)
-    
-    def __str__(self):
-         return '%s - %s' % (self.question.title, self.name)
+     post = models.ForeignKey(Post,related_name="comments" ,null=True,on_delete=models.CASCADE)
+     name=models.CharField(max_length=100)
+     body = models.TextField(max_length=500)
+     date_added = models.DateTimeField(auto_now_add=True)
+
+     def __str__(self):
+         return '%s - %s' % (self.post.title,self.name)
     
     
 class Like(models.Model):

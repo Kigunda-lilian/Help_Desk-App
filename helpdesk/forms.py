@@ -2,13 +2,10 @@ from django.forms import ModelForm
 from django import forms
 from . models import Post,Profile,Comments,Like
 
-from helpdesk.views import Post
-from . models import Comments,Profile,Like,Post
-
 
 class PostForm(ModelForm):
     class Meta:
-        model=Comments
+        model=Post
         fields="__all__"
 
 
