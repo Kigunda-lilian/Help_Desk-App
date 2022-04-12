@@ -1,10 +1,26 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<form action="">
-    <input type="text">
-</form>
+<style>
+    .form-text {
+        display: none !important;
+    }
+    form{
+        width:50%;
+        margin: auto;
+        border:5px solid #ddd;
+        padding: 20px;
+    }
+</style>
+<div class="container">
+<h1 class="text-center">Registration Form</h1>
+    <form action="/accounts/register/" method="POST">
+         {% csrf_token %}
+        {{ form|crispy}}
+        <input type="submit" class="btn btn-primary mt-3" value="Register">
+        <p class="h5 mt-4">Have an account? <a href="/accounts/login">Sign in</a></p>
 
-
+    </form>
+</div>
 
 {% endblock %}
