@@ -1,32 +1,71 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-    <p>Posted by: {{ obj.user.username }} </p>
-    <h1> {{ obj.question }}? </h1>
-    <p>Answers</p>
-    <a class="btn-primary btn-lg" href="">Post Your Answer</a>
-    {% if not obj.comments.all %}
-        <div class="card">
-            <div class="card-header">
-                <h6>No Answers Yet...</h6>
-            </div>
-        </div>
-        
-        <a href="">Answer This Question</a>
-    {% else %}
-        {% for comment in obj.comments.all %}
-            <strong>
-                Answered by: {{ comment.name}}-
-                {{ comment.date_added}}
-            </strong>  
-            <br>  
-            <div class="card">
-                <div class="card-header">
-                    <p>{{ comment.body}}</p>
-                </div>
-            </div>
-            
-        {% endfor %}
-        
+    <p>Posted by: {{ post.post_owner.username }} </p>
+    <h1> {{ post.question }}? </h1>
+    <!--Approve ans -->
+    {% if post.post_owner %}
+    <a href=" {% url 'approve_ans' %} "> Approve Answers</a>
     {% endif %}
+    
+    
+    <h2>{{ comments.count }} Answer{{comments|pluralize}}</h2>
+    <!--likes and dislikes-->
+    <div class="d-flex flex-row">
+        <form method="POST" action="{% url 'like' post.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+                <i class="far fa-thumbs-up"> <span>{{ post.likes.all.count }}</span></i>
+            </button>
+        </form>
+
+        <form method="POST" action="{% url 'dislike' post.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+                <i class="far fa-thumbs-down"> <span>{{ post.dislikes.all.count }}</span></i>
+            </button>
+        </form>
+</div>
+   
+
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p}}
+        {% if request.user.is_authenticated %}
+            <input type="submit" value="Submit" class="btn btn-outline-success">
+        {% else %}
+            <input type="submit" value="Submit" class="btn btn-outline-success" disabled>
+        {% endif %}
+    </form>
+</div>
+
+
+    {% for comment in comments %}
+        <figure>
+            <blockquote class="blockquote">
+            <p>[{{comment.id}}]</p>
+            {% if comment.agreed %}
+            <i style="color: green;" class="fa-solid fa-circle-check"> <span>This Answer Worked!!</span></i>
+            <p>{{ comment.body }}</p>
+            {% else %}
+            
+            {% if comment.post.post_owner %}
+            {{ comment.body }}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value=" {{comment.id }}" name="boxes">
+            </div>
+            {% endif %}
+            <p>{{ comment.body }}</p>
+            {% endif %}
+            </blockquote>
+            <figcaption class="blockquote-footer">by<cite title="Source Title">{{comment.user|capfirst}}</cite>
+            </figcaption>
+        </figure>
+    {% endfor %}
+
+
+        
 {% endblock %}
