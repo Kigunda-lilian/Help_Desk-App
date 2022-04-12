@@ -57,7 +57,7 @@
           <div class="card-body">
             <h3 class="card-title  mb-2 ">{{ question.title }}</h3>
             <a href=" {% url 'details' question.id %} "><h5>{{ question.question }}</h5></a>
-            <p class="card-text"> {{tag.Description}}</p>
+            <p class="card-text"> {{question.tags.language}}</p>
             <a href="#" class="card-link ">{{question.comment}} comments</a>
             <p class="card-text text-muted">  posted on {{question.posted_on}} by {{question.user}} </p>
           </div>
