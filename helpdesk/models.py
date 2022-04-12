@@ -63,13 +63,8 @@ class Post(models.Model):
 class Tag(models.Model):
     language= models.CharField(max_length=50)
     stage= models.CharField(max_length=80)
-<<<<<<< HEAD
     
     
-=======
-    title=models.CharField(max_length=50)
-    Description=models.TextField()
->>>>>>> helpddomy
     logical=models.BooleanField(default=True)
     technical=models.BooleanField(default=False)
     
@@ -80,11 +75,7 @@ reactions={('Like','Like'),('Unlike','Unlike')}
     
 class Comment(models.Model):
      post = models.ForeignKey(Post,related_name="comments" ,null=True,on_delete=models.CASCADE)
-<<<<<<< HEAD
      user=models.ForeignKey(Account,on_delete=models.CASCADE,null="False")
-=======
-     user=models.ForeignKey(Account,on_delete=models.CASCADE)
->>>>>>> helpddomy
      body = models.TextField(max_length=500)
      date= models.DateTimeField(auto_now_add=True)
      agreed = models.BooleanField('Agreed',default=False)
