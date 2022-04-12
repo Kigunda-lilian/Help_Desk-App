@@ -16,6 +16,7 @@ urlpatterns = [
     path("questions/<int:id>", views.details, name="details"),
     path('search/', views.search, name='search'),
     path('approve_ans/', views.approve_ans, name='approve_ans'),
+    path("tags/",views.tags,name="tags"),
     
     #API
     path("api/profile/",ProfileList.as_view(),name="profileApi"),

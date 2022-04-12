@@ -56,7 +56,7 @@ class Post(models.Model):
       return self.postslikes.count()
   
     def __str__(self):
-             return '{}-{}'.format(self.title, str(self.tag.language))
+               return self.title
        
     
        
