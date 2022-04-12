@@ -17,13 +17,7 @@ from . import models
 
 
 def home(request):
-    if request.method == 'POST':
-        questions=Post.objects.all()
-        for q in questions:
-            total+=1
-            print(request.POST.get(q.question))
-            print(q.answer)
-            print()
+    
     return render(request, 'index.html', {})
     
 def my_profile(request):
@@ -108,18 +102,19 @@ def add_question(request):
     else: 
         return redirect('home')
 
-def search(request):
-    questions = Post.objects.all()
-    if 'query' in request.GET and request.GET["query"]:
-        search_term = request.GET.get("query")
-        searched_results = Post.objects.filter(question__icontains=search_term)
-        message = f"Search For: {search_term}"
-        context = {"message": message, "businesses": searched_results}
-        return render(request, "search.html", context)
-    else:
-        message = "You haven't searched for any term"
-        context = {"message": message,'questions':questions}
-        return render(request, "search.html", context)
+
+# def search(request):
+
+#   if 'project' in request.GET and request.GET["project"]:
+#     search_term = request.GET.get("project")
+#     searched_projects = Post.search_by_title(search_term)
+#     message = f"{search_term}"
+
+#     return render(request, 'search.html',{"message":message,"projects": searched_projects})
+
+#   else:
+#     message = "You haven't searched for any term"
+#     return render(request, 'search.html',{"message":message})
 
   
 

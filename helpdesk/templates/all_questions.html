@@ -3,12 +3,12 @@
     <h1>Questions</h1>
     <ul>
         {% for questions in question %}
-            <p>{{ question.name }}</p>
-            <a href=" {% url 'details' question.id %} "><h3>{{ question.question }}</h3></a>
+            <p>{{ questions.name }}</p>
+            <a href=" {% url 'details' question.id %} "><h3>{{ questions.question }}</h3></a>
             <div class="row">          
               <div class="col-ms-3">
                 <p class="text-muted">
-                    posted: {{question.posted_on}}
+                    posted: {{questions.posted_on}}
                 </p>
               </div>
             </div>

@@ -1,76 +1,46 @@
-{% extends "base.html" %}
-
+{%extends 'base.html'%}
 {% block content %}
 
-    <div class="container mt-5">
+<div class="container">
+  <div class="row pt-5 m-auto">
+    {% if projects%}
+    <h2>Found {{ projects|length }} of searched term "{{message}}"</h2>
+    {% else %}
+    <h2> Found 0 Projects for the search term "{{message}}"</h2>
+    {% endif %}
+  </div>
+  <div class="row pt-5 m-auto">
+    {% if projects%}
+    {% for item in projects %}
+    <div class="col-md-6 col-lg-4 pb-3">
 
-        <div class="row mt-4">
-
-            <h2 class="text-center mb-5 headings">Your search results for {{message}}</h2>
-
-            
-            <div class="container-fluid ">
-<h1 class="text-center text-info">Django Questions</h1>
-
-
- <form  method='post' action="{% url 'search' %}">
-    {% csrf_token %}
-    
-    <div class="row whole_body">
-    <div class="form-group">
-      <label for="question">{{q.question}}</label>
-    </div>
-    <div class="form-check">
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="choice1" >
-            <label class="form-check-label" for="gridRadios1">
-                {{q.choice1}}
-            </label>
+      <div class="card card-custom bg-white border-white border-0">
+        <div>
+          <img src="{{item.img.cdn_url}}" alt="" class="img-fluid">
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="choice2">
-            <label class="form-check-label" for="gridRadios2">
-                {{q.choice2}}
-            </label>
+        <div class="card-custom-avatar">
+          <img class="img-fluid"
+            src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg"
+            alt="Avatar" />
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="choice3">
-            <label class="form-check-label" for="gridRadios1">
-                {{q.choice3}}
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="choice4">
-            <label class="form-check-label" for="gridRadios2">
-                {{q.choice4}}
-            </label>
-        </div>
-    </div>
 
+        <div class="card-body" style="overflow-y: auto">
+          <h4 class="card-title"><strong>{{item.title}}</strong></h4>
+          <p class="card-text text-muted">Posted on {{project.publish_date | date}}</p>
+          <p class="card-text"><strong>About: </strong> <span
+              style="font-family: 'Arsenal', sans-serif;">{{item.description}}</span></p>
+        </div>
+        <div class="card-footer" style="background: inherit; border-color: inherit; border: none;">
+          <a href="#" class="btn btn-dark rounded rounded-pill btn-block">Review</a>
+          <a href="{{item.live_site}}" class="btn btn-outline-dark rounded rounded-pill btn-block">Go To Site</a>
+        </div>
+
+      </div>
 
     </div>
- 
-    <input id='timer' class="text-danger" style="color:red" type='hidden' name="timer" value="">
-    <br>
-    <div class="row" style="clear: both;">
-    <button type="submit" style="width:10%;margin: auto;" class="btn btn-info p-3 mt-2">Submit</button>
+    {% endfor %}
+    {% endif %}
+  </div>
 </div>
-  </form>
- 
-
-</div>
-
-          
-            >
-            
-      
- 
-
-
-
-
-        </div>
-    </div>
-    </div>
 
 {% endblock %}
