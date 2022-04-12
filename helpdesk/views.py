@@ -1,3 +1,4 @@
+from tkinter.messagebox import QUESTION
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Like, Post,Profile, Comments
 from helpdesk import views,forms
@@ -6,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import LikesForm, CommentsForm,PostForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
-from .models import Profile,Comments
+from .models import Profile,Comments,Post
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth import login, views, forms
@@ -16,6 +17,13 @@ from . import models
 
 
 def home(request):
+    if request.method == 'POST':
+        questions=Post.objects.all()
+        for q in questions:
+            total+=1
+            print(request.POST.get(q.question))
+            print(q.answer)
+            print()
     return render(request, 'index.html', {})
     
 def my_profile(request):
@@ -62,7 +70,7 @@ def update_profile(request):
         user.save()
         return redirect("/profile")
     else:
-        return render(request, "Question_app/profile.html")
+        return render(request, "profile.html")
 
 #display Questions
 def questions(request):
@@ -100,19 +108,20 @@ def add_question(request):
     else: 
         return redirect('home')
 
-@login_required(login_url="/accounts/login/")
 def search(request):
-    questions = Comments.objects.all()
+    questions = Post.objects.all()
     if 'query' in request.GET and request.GET["query"]:
         search_term = request.GET.get("query")
-        searched_results = Comments.objects.filter(question__icontains=search_term)
+        searched_results = Post.objects.filter(question__icontains=search_term)
         message = f"Search For: {search_term}"
         context = {"message": message, "businesses": searched_results}
-        return render(request, "Question_app/search.html", context)
+        return render(request, "search.html", context)
     else:
         message = "You haven't searched for any term"
         context = {"message": message,'questions':questions}
-        return render(request, "Question_app/search.html", context)
+        return render(request, "search.html", context)
+
+  
 
 
 

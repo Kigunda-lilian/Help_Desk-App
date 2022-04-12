@@ -28,7 +28,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 
 INSTALLED_APPS = [
     'helpdesk',
-    'authentication',
+    
     'crispy_forms',
     'bootstrap5',
     'django.contrib.admin',
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_registration',
 ]
-AUTH_USER_MODEL = 'authentication.Account'
+
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -70,14 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Helpdesk.wsgi.application'
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dkhelp',
-        'USER': 'moringa',
-    'PASSWORD':'0723120546',
-    }
-}
+
 
 
 # Database
@@ -86,7 +79,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mutwiri',
+        'NAME': 'help12',
         'USER': 'moringa',
         'PASSWORD':'12345',
     }
@@ -136,12 +129,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 ACCOUNT_ACTIVATION_DAYS=7
-DEFAULT_FROM_EMAIL = "segem.kiprono@student.moringaschool.com"
+DEFAULT_FROM_EMAIL = "nm9703992@gmail.com"
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER ="segem.kiprono@student.moringaschool.com"
-EMAIL_HOST_PASSWORD = "2020Segem"
+EMAIL_HOST_USER ="nm9703992@gmail.com"
+EMAIL_HOST_PASSWORD = "savage@12345"
 EMAIL_USE_TLS=True
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL ='login'

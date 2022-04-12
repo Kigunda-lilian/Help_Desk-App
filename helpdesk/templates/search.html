@@ -10,13 +10,12 @@
 
             
             <div class="container-fluid ">
-<h1 class="text-center text-info">Help-Desk</h1>
+<h1 class="text-center text-info">Django Questions</h1>
 
-<div align="right " id="displaytimer"><button class="btn btn-outline-danger">Timer: 0 seconds</button ></div>
 
- <form  method='post' action=''>
+ <form  method='post' action="{% url 'search' %}">
     {% csrf_token %}
-    {% for q  in questions%}
+    
     <div class="row whole_body">
     <div class="form-group">
       <label for="question">{{q.question}}</label>
@@ -50,34 +49,28 @@
 
 
     </div>
-    {% endfor %}
+ 
     <input id='timer' class="text-danger" style="color:red" type='hidden' name="timer" value="">
     <br>
     <div class="row" style="clear: both;">
     <button type="submit" style="width:10%;margin: auto;" class="btn btn-info p-3 mt-2">Submit</button>
 </div>
   </form>
-    {% block script %}
-        <script>
-
-            console.log('hello world')
-            const timer=document.getElementById('displaytimer')
-            console.log(timer.textContent)
-            const inputtag = document.getElementById('timer')
-
-            t=0
-            setInterval(()=>{
-                t+=1
-                timer.innerHTML ="<b>Timer: " +t+" seconds</b>"
-                inputtag.value = t
-            },1000)
-        </script>
-    {% endblock script %}
+ 
 
 </div>
-            {% empty %}
-            <div class="col-md-12">
-                <div class="alert alert-dangher" role="alert">
-                    <h1>No results found for your search.</h1>
-                </div>
-            {% endfor %}
+
+          
+            >
+            
+      
+ 
+
+
+
+
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

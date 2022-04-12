@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Questions</h1>
     <ul>
-        {% for question in questions %}
+        {% for questions in question %}
             <p>{{ question.name }}</p>
             <a href=" {% url 'details' question.id %} "><h3>{{ question.question }}</h3></a>
             <div class="row">          
