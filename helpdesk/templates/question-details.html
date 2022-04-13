@@ -50,10 +50,11 @@
             {% if comment.agreed %}
             <i style="color: green;" class="fa-solid fa-circle-check"> <span>This Answer Worked!!</span></i>
             <p>{{ comment.body }}</p>
+            
             {% else %}
             
             {% if comment.post.post_owner %}
-            {{ comment.body }}
+            
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value=" {{comment.id }}" name="boxes">
             </div>
@@ -61,6 +62,26 @@
             <p>{{ comment.body }}</p>
             {% endif %}
             </blockquote>
+
+<!--comment likes and dislikes-->
+    <div class="d-flex flex-row">
+        <form method="POST" action="{% url 'comment-like' post.pk comment.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button class="remove-default-btn" type="submit">
+                <i class="far fa-thumbs-up"> <span>{{ comment.likes.all.count }}</span></i>
+            </button>
+        </form>
+
+        <form method="POST" action="{% url 'comment-dislike' post.pk comment.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button class="remove-default-btn" type="submit">
+                <i class="far fa-thumbs-down"> <span>{{ comment.dislikes.all.count }}</span></i>
+            </button>
+        </form>
+
+
             <figcaption class="blockquote-footer">by<cite title="Source Title">{{comment.user|capfirst}}</cite>
             </figcaption>
         </figure>

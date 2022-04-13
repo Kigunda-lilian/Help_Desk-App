@@ -67,6 +67,7 @@ class Tag(models.Model):
     logical=models.BooleanField(default=True)
     technical=models.BooleanField(default=False)
     
+    
     def __str__(self):
         return self.language
     
@@ -78,6 +79,8 @@ class Comment(models.Model):
      body = models.TextField(max_length=500)
      date= models.DateTimeField(auto_now_add=True)
      agreed = models.BooleanField('Agreed',default=False)
+     likes = models.ManyToManyField(User, blank=True, related_name='comment_likes'),
+     dislikes = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
 
      def __str__(self):
          return '{}-{}'.format(self.post.title, str(self.user.username))
@@ -90,5 +93,7 @@ class Like(models.Model):
     
     def __str__(self):
         return self.response
+
+
 
 
