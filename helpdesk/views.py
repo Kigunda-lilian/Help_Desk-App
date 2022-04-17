@@ -1,6 +1,7 @@
 from multiprocessing import context
+from ssl import create_default_context
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Like, Post,Profile, Comment
+from .models import Like, Post,Profile, Comment,Dislike
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
@@ -39,7 +40,7 @@ def search(request):
 
 
 #answers approval
-def approve_ans(request):
+def approve_ans(request,id):
     answers_list = Comment.objects.all().order_by('-id')
     if request.user.is_superuser:
         return render(request, 'approve_ans.html',{'answers_list': answers_list})
@@ -176,16 +177,7 @@ def search(request):
         context = {"message": message,'questions':questions}
         return render(request, "search.html", context)
 
-
 #likes for post
-def likes(request,post_id):
-  likesForm = LikesForm()
-  obj1=Like.objects.create(user=request.user,post=get_object_or_404(Post,pk=post_id),likes=1)
-  obj1.save()
-  print(obj1)
-  return redirect('')
-
-#dislikes for post
 class AddLike(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         post = Post.objects.get(pk=pk)
@@ -204,7 +196,7 @@ class AddLike(LoginRequiredMixin, View):
 
         for like in post.likes.all():
             if like == request.user:
-                is_like = True
+                is_like = Trueis_dislike = False
                 break
 
         if not is_like:
@@ -246,79 +238,123 @@ class AddDislike(LoginRequiredMixin, View):
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
 
-#comment likes and dislikes
-def likes(request,post_id):
-  likesForm = LikesForm()
-  obj1=Like.objects.create(user=request.user,post=get_object_or_404(Post,pk=post_id),likes=1)
-  obj1.save()
-  print(obj1)
-  return redirect('')
 
-#dislikes for post
+
+
+#likes for comment
 class AddCommentLike(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
-        comment = Comment.objects.get(pk=pk)
+        comments = Comment.objects.get(pk=pk)
 
         is_dislike = False
 
-        for dislike in comment.dislikes.all():
+        for dislike in comments.dislikes.all():
             if dislike == request.user:
                 is_dislike = True
                 break
 
         if is_dislike:
-            comment.dislikes.remove(request.user)
+            comments.dislikes.remove(request.user)
 
         is_like = False
 
-        for like in comment.likes.all():
+        for like in comments.likes:
             if like == request.user:
-                is_like = True
+                is_like = Trueis_dislike = False
                 break
 
         if not is_like:
-            comment.likes.add(request.user)
+            comments.likes.add(request.user)
+        
 
         if is_like:
-            comment.likes.remove(request.user)
+            comments.likes.remove(request.user)
 
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
-#adddislikes for post
+
+
+#adddislikes for comment
 class AddCommentDislike(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
-        comment = Comment.objects.get(pk=pk)
+        comments = Comment.objects.get(pk=pk)
 
         is_like = False
 
-        for like in comment.likes.all():
+        for like in comments.likes:
             if like == request.user:
                 is_like = True
                 break
 
         if is_like:
-            comment.likes.remove(request.user)
+            comments.likes.remove(request.user)
 
         is_dislike = False
 
-        for dislike in comment.dislikes.all():
+        for dislike in comments.dislikes.all():
             if dislike == request.user:
                 is_dislike = True
                 break
 
         if not is_dislike:
-            comment.dislikes.add(request.user)
+            comments.dislikes.add(request.user)
 
         if is_dislike:
-            comment.dislikes.remove(request.user)
+            comments.dislikes.remove(request.user)
 
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
-
-
 #user reg
 class UserRegisterView(generic.CreateView):
     form_class = SignUpForm
     template_name = 'django_registration/registration_form.html'
     success_url = reverse_lazy('login')
+
+
+def likecomment(request,id,ids):
+    comment=Comment.objects.get(id=id)
+    try:
+        users=Dislike.objects.get(user=request.user,comment=comment)
+        response='/questions/'+str(ids)
+        return redirect(response)
+    except:
+        
+        user=request.user
+        check_like=Like.objects.filter(user=user)
+        if check_like.exists():
+            check_like=Like.objects.get(user=user)
+            check_like.delete()
+            comment.total_likes=comment.total_likes - 1
+            comment.save()
+        else:
+            new_like=Like(user=user, response='like',comment=comment)
+            new_like.save()
+            comment.total_likes=comment.total_likes + 1
+            comment.save()
+        response='/questions/'+str(ids)
+        return redirect(response)
+def dislikecomment(request,id,ids):
+    comment=Comment.objects.get(id=id)
+
+    try:
+        users=Like.objects.get(user=request.user,comment=comment)
+        response='/questions/'+str(ids)
+        return redirect(response)
+    except:
+        user=request.user
+        check_like=Dislike.objects.filter(user=user)
+        if check_like.exists():
+            check_like=Dislike.objects.get(user=user)
+            check_like.delete()
+            comment.total_dislikes=comment.total_dislikes - 1
+            comment.save()
+        else:
+            new_dislike=Dislike(user=user, response='dislike',comment=comment)
+            new_dislike.save()
+            comment.total_dislikes=comment.total_dislikes + 1
+            comment.save()
+        response='/questions/'+str(ids)
+        return redirect(response)
+    
+
     

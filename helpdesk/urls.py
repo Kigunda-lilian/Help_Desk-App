@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
-from .views import AddLike,AddDislike,AddCommentLike,AddCommentDislike,UserRegisterView
+from . import views 
+from .views import AddLike,AddDislike,AddCommentDislike,UserRegisterView,AddCommentLike,likecomment,dislikecomment
 urlpatterns = [ 
     path('',views.home,name='home'),
     path("profile/", views.my_profile, name="profile"),
@@ -16,8 +16,12 @@ urlpatterns = [
     path("questions/", views.questions, name="questions"),
     path("questions/<int:id>", views.details, name="details"),
     path('search/', views.search, name='search'),
-    path('approve_ans/', views.approve_ans, name='approve_ans'),
-        path('register/', UserRegisterView.as_view(), name='register'),
+    path('approve_ans/<int:id>/', views.approve_ans, name='approve_ans'),
+    path('register/', UserRegisterView.as_view(), name='register'),
+    path('post/likecomment/<int:id>/<int:ids>',likecomment,name='likecomment'),
+    path('post/dislikecomment/<int:id>/<int:ids>',dislikecomment,name='dislikecomment')
+
+
 
 ]
 

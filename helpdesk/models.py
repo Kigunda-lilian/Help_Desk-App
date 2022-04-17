@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
@@ -81,15 +82,26 @@ class Comment(models.Model):
      agreed = models.BooleanField('Agreed',default=False)
      likes = models.ManyToManyField(User, blank=True, related_name='comment_likes'),
      dislikes = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
+     total_likes=models.IntegerField(default=0)
+     total_dislikes=models.IntegerField(default=0)
 
      def __str__(self):
          return '{}-{}'.format(self.post.title, str(self.user.username))
-    
+        
+     
     
     
 class Like(models.Model):
-    response = models.CharField(choices=reactions,default='like',max_length=70)
-    user = models.ForeignKey(User,on_delete = models.CASCADE,null="False")
+    response = models.CharField(choices=reactions,null=True,max_length=70)
+    user = models.ForeignKey(User,null=True,on_delete = models.CASCADE)
+    comment=models.ForeignKey(Comment,null=True,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.response
+class Dislike(models.Model):
+    response = models.CharField(choices=reactions,null=True,max_length=70)
+    user = models.ForeignKey(User,null=True,on_delete = models.CASCADE)
+    comment=models.ForeignKey(Comment,null=True,on_delete=models.CASCADE)
     
     def __str__(self):
         return self.response
