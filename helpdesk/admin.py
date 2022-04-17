@@ -1,11 +1,11 @@
 from django.contrib import admin
-from authentication.models import Account
-from .models import Profile,Comments,Tag,Like,Post
-admin.site.register(Account)
+from .models import Profile,Comment,Tag,Like,Post,Dislike
 admin.site.register(Profile)
 admin.site.register(Tag)
 admin.site.register(Post)
 admin.site.register(Like)
-admin.site.register(Comments)
+admin.site.register(Comment)
+admin.site.register(Dislike)
+
 
 
