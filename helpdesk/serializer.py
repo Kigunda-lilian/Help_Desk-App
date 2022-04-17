@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile,Post,Tag,Comments
+from .models import Profile,Post,Tag,Comment
 
 # profile serializer
 class ProfileSerializer(serializers.ModelSerializer):
@@ -20,5 +20,5 @@ class  TagSerializer(serializers.ModelSerializer):
 # cmments serializer        
 class  CommentsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comments
+        model = Comment
         fields = ("question", "user", "name","reply", "posted_on" ) 

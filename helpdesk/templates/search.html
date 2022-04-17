@@ -75,9 +75,10 @@
     {% endblock script %}
 
 </div>
-            {% empty %}
+            {% for result in results %}
             <div class="col-md-12">
                 <div class="alert alert-dangher" role="alert">
                     <h1>No results found for your search.</h1>
                 </div>
             {% endfor %}
+{% endblock %}
