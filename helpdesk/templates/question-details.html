@@ -3,31 +3,10 @@
 {% block content %}
     <p>Posted by: {{ post.post_owner.username }} </p>
     <h1> {{ post.question }}? </h1>
-    <!--Approve ans -->
-    {% if post.post_owner %}
-    <a href=" {% url 'approve_ans' post.id %} "> Approve Answers</a>
-    {% endif %}
-    
-    
+   
     <h2>{{ comments.count }} Answer{{comments|pluralize}}</h2>
     <!--likes and dislikes-->
-    <div class="d-flex flex-row">
-        <form method="POST" action="{% url 'like' post.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.path }}">
-            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
-                <i class="far fa-thumbs-up"> <span>{{ post.likes.all.count }}</span></i>
-            </button>
-        </form>
-
-        <form method="POST" action="{% url 'dislike' post.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.path }}">
-            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
-                <i class="far fa-thumbs-down"> <span>{{ post.dislikes.all.count }}</span></i>
-            </button>
-        </form>
-</div>
+   
 <div>
     <form method="post">
         {% csrf_token %}
@@ -44,16 +23,6 @@
     {% for comment in comments %}
         <figure>
             <blockquote class="blockquote">
-            {% if comment.agreed %}
-                <i style="color: green;" class="fa-solid fa-circle-check"> <span>This Answer Worked!!</span></i>
-            {% else %}
-            
-            {% if comment.post.post_owner %}
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value=" {{comment.id }}" name="boxes">
-                </div>
-            <br>
-            {% endif %}
             <div class="card">
                 <div class="row">
                     <div class="col-md-9">
@@ -71,7 +40,6 @@
                     </div>
                 </div>
               </div>
-            {% endif %}
             </blockquote>
 
 <!--comment likes and dislikes-->
