@@ -1,7 +1,7 @@
 from multiprocessing import context
 from ssl import create_default_context
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Like, Post,Profile, Comment,Dislike
+from .models import Like, Post,Profile, Comment,Dislike, Tag
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
@@ -36,6 +36,10 @@ def search(request):
     }
     
     return render(request,'search.html', context)
+    #tags views
+def tags(request):
+    tag = Tag.objects.all()
+    return render(request, 'questions/tags.html',{'tags':tag})
     
 
 
