@@ -62,12 +62,10 @@ class Post(models.Model):
 class Tag(models.Model):
     language= models.CharField(max_length=50)
     stage= models.CharField(max_length=80)
-    title=models.CharField(max_length=50)
-    Description=models.TextField()
-    quiz = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='query',null="True")
     logical=models.BooleanField(default=True)
     technical=models.BooleanField(default=False)
-    
+    def __str__(self):
+        return self.language  
     
     def __str__(self):
         return self.language

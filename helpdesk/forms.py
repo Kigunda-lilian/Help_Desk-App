@@ -12,6 +12,7 @@ class PostForm(ModelForm):
         widgets = {
       'title': forms.TextInput(attrs={'class':'form-control'}),
       'question': forms.Textarea(attrs={'class':'form-control'}),
+
     }
 
 

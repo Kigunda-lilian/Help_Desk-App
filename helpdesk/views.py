@@ -44,6 +44,7 @@ def tags(request):
 
 
 #answers approval
+@login_required(login_url='/accounts/login/')
 def approve_ans(request,id):
     answers_list = Comment.objects.all().order_by('-id')
     if request.user.is_superuser:
@@ -141,7 +142,7 @@ def details(request,id):
     
    
     return render(request, 'question-details.html', context)
-
+@login_required(login_url='/accounts/login/')
 def post(request):
     form=PostForm()
     if(request.method=='POST'):
@@ -152,7 +153,7 @@ def post(request):
     context={'form':form}
     return render(request,'add_question.html',context)
 
- 
+@login_required(login_url='/accounts/login/')
 def add_question(request): 
 
     if request.user.is_staff:
@@ -314,7 +315,7 @@ class UserRegisterView(generic.CreateView):
     template_name = 'django_registration/registration_form.html'
     success_url = reverse_lazy('login')
 
-
+@login_required(login_url='/accounts/login/')
 def likecomment(request,id,ids):
     comment=Comment.objects.get(id=id)
     try:
@@ -337,6 +338,7 @@ def likecomment(request,id,ids):
             comment.save()
         response='/questions/'+str(ids)
         return redirect(response)
+@login_required(login_url='/accounts/login/')
 def dislikecomment(request,id,ids):
     comment=Comment.objects.get(id=id)
 
