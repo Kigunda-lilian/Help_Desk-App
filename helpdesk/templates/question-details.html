@@ -4,31 +4,8 @@
     <p>Posted by: {{ post.post_owner.username }} </p>
     <h1> {{ post.question }}? </h1>
     <!--Approve ans -->
-    {% if post.post_owner %}
-    <a href=" {% url 'approve_ans' post.id %} "> Approve Answers</a>
-    {% endif %}
-    
-    
     <h2>{{ comments.count }} Answer{{comments|pluralize}}</h2>
     <!--likes and dislikes-->
-    <div class="d-flex flex-row">
-        <form method="POST" action="{% url 'like' post.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.path }}">
-            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
-                <i class="far fa-thumbs-up"> <span>{{ post.likes.all.count }}</span></i>
-            </button>
-        </form>
-
-        <form method="POST" action="{% url 'dislike' post.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.path }}">
-            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
-                <i class="far fa-thumbs-down"> <span>{{ post.dislikes.all.count }}</span></i>
-            </button>
-        </form>
-</div>
-<div>
     <form method="post">
         {% csrf_token %}
         {{ comment_form.as_p}}
@@ -38,9 +15,6 @@
             <input type="submit" value="Submit" class="btn btn-outline-success" disabled>
         {% endif %}
     </form>
-</div>
-
-
     {% for comment in comments %}
         <figure>
             <blockquote class="blockquote">
@@ -86,7 +60,10 @@
                 <i class="far fa-thumbs-down"> <span>{{ comment.total_dislikes }}</span></i>
             </button>
         </a>
-        <figcaption class="blockquote-footer">by<cite title="Source Title">{{comment.user|capfirst}}</cite>
+        <figcaption class="blockquote-footer">Answered By: <cite title="Source Title">
+            <strong>
+                {{comment.user|capfirst}}</cite>
+            </strong>| Answered: {{comment.date}}
         </figcaption>
         </figure>
     {% endfor %}

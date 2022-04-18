@@ -28,6 +28,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'helpdesk',
     'crispy_forms',
     'bootstrap5',
@@ -72,7 +73,7 @@ WSGI_APPLICATION = 'Helpdesk.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dkhelp',
+        'NAME': 'desk',
         'USER': 'moringa',
     'PASSWORD':'0723120546',
     }

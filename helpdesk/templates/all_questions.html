@@ -4,35 +4,16 @@
     <h1>Questions</h1>
     <ul>
         {% for question in questions %}
-            <p>{{ question.name }}</p>
-            <a href=" {% url 'details' question.pk %} "><h3>{{ question.question }}</h3></a>
+            <a style="text-decoration: none;" href=" {% url 'details' question.pk %} "><h3>{{ question.question }}</h3></a>
             <div class="row">          
               <div class="col-ms-3">
                 <p class="text-muted">
-                    posted: {{question.posted_on}}
+                    Posted On: {{question.posted_on}}
                 </p>
+                <p>Author: {{question.post_owner}}</p>
               </div>
-              <div class="d-flex flex-row">
-                <form method="POST" action="{% url 'like' question.pk %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
-                        <i class="fa-solid fa-thumbs-up"> <span>{{ question.likes.all.count }}</span></i>
-                    </button>
-                </form>
-
-                <form method="POST" action="{% url 'dislike' question.id %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
-                        <i class="far fa-thumbs-down"> <span>{{ question.dislikes.all.count }}</span></i>
-                    </button>
-                </form>
-        </div>
             </div>
-
+            <hr>
         {% endfor %}
     </ul>
-   
-
 {% endblock %}
