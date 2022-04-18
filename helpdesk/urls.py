@@ -20,8 +20,5 @@ urlpatterns = [
     path('register/', UserRegisterView.as_view(), name='register'),
     path('post/likecomment/<int:id>/<int:ids>',likecomment,name='likecomment'),
     path('post/dislikecomment/<int:id>/<int:ids>',dislikecomment,name='dislikecomment')
-
-
-
 ]
 
