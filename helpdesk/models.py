@@ -18,10 +18,10 @@ class Post(models.Model):
     post_owner = models.ForeignKey(User, on_delete=models.PROTECT,null="False",related_name='user_images')
     title = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
+    tag=models.ManyToManyField('Tag', blank=True, related_name='tag')
     posted_on = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')
     dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
-   
     def create_post(self):
             self.save()
 
