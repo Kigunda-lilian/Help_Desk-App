@@ -29,7 +29,6 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 
 INSTALLED_APPS = [
     'helpdesk',
-    'authentication',
     'crispy_forms',
     'bootstrap5',
     'django.contrib.admin',
@@ -40,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_registration',
 ]
-AUTH_USER_MODEL = 'authentication.Account'
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -84,14 +82,6 @@ DATABASES = {
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': ('debug'),
-        'USER': ('moringa'),
-        'PASSWORD':('1234'),
-    }
-}
 
 
 
@@ -112,6 +102,20 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+# Base url to serve media files
+MEDIA_URL = '/media/'
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 
 # Internationalization
@@ -138,14 +142,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 ACCOUNT_ACTIVATION_DAYS=7
-DEFAULT_FROM_EMAIL = "segem.kiprono@student.moringaschool.com"
+DEFAULT_FROM_EMAIL = "nm9703992@gmail.com"
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER ="segem.kiprono@student.moringaschool.com"
-EMAIL_HOST_PASSWORD = "2020Segem"
+EMAIL_HOST_USER ="nm9703992@gmail.com"
+EMAIL_HOST_PASSWORD = "savage@12345"
 EMAIL_USE_TLS=True
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL ='login'
+
+
+
+
+
 
 django_heroku.settings(locals())
