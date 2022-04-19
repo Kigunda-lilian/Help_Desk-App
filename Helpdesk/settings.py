@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'helpdesk',
     'crispy_forms',
     'bootstrap5',
+   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -99,9 +100,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Helpdesk.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': ('deskss'),
+        'USER': ('moringa'),
+        'PASSWORD':('1234'),
+    }
+}
 
 
 
@@ -154,7 +164,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+# Dir where uploaded file will be saved
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

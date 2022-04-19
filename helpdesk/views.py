@@ -59,6 +59,15 @@ class AddTagView(CreateView):
     
 
 
+#API
+from django.http import JsonResponse
+from rest_framework import status
+from django.http import Http404
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,PostSerializer,TagSerializer, CommentsSerializer
+from helpdesk import serializer
+
 #answers approval
 @login_required(login_url='/accounts/login/')
 def approve_ans(request,id):
