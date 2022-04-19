@@ -8,7 +8,7 @@ from decouple import config,Csv
 import dotenv 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
@@ -43,6 +43,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY =  'django-insecure-*#xn%58h#@*fyb8ndmc(8r5b7&x)%gu#wds+677cxchh(g()mm'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY='SECRET_KEY'
 
@@ -148,18 +149,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = 'static/'
-# Dir where uploaded file will be saved
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-MEDIA_URL='/media/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    
-]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -176,10 +165,4 @@ EMAIL_HOST_PASSWORD = "savage@12345"
 EMAIL_USE_TLS=True
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL ='login'
-
-
-
-
-
-
 django_heroku.settings(locals())
