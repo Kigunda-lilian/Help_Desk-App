@@ -4,21 +4,16 @@
     <h1>Questions</h1>
     <ul>
         {% for question in questions %}
-            <p>{{ question.name }}</p>
             <a style="text-decoration: none;" href=" {% url 'details' question.pk %} "><h3>{{ question.question }}</h3></a>
             <div class="row">          
               <div class="col-ms-3">
                 <p class="text-muted">
                     Posted On: {{question.posted_on}}
                 </p>
-                <p class="text-muted">
-                    Author: {{question.post_owner}}
-                </p>
+                <p>Author: {{question.post_owner}}</p>
               </div>
             </div>
             <hr>
         {% endfor %}
     </ul>
-   
-
 {% endblock %}

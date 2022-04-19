@@ -3,11 +3,9 @@
 {% block content %}
     <p>Posted by: {{ post.post_owner.username }} </p>
     <h1> {{ post.question }}? </h1>
-   
+    <!--Approve ans -->
     <h2>{{ comments.count }} Answer{{comments|pluralize}}</h2>
     <!--likes and dislikes-->
-   
-<div>
     <form method="post">
         {% csrf_token %}
         {{ comment_form.as_p}}
@@ -17,9 +15,6 @@
             <input type="submit" value="Submit" class="btn btn-outline-success" disabled>
         {% endif %}
     </form>
-</div>
-
-
     {% for comment in comments %}
         <figure>
             <blockquote class="blockquote">
@@ -54,7 +49,10 @@
                 <i class="far fa-thumbs-down"> <span>{{ comment.total_dislikes }}</span></i>
             </button>
         </a>
-        <figcaption class="blockquote-footer">by<cite title="Source Title">{{comment.user|capfirst}}</cite>
+        <figcaption class="blockquote-footer">Answered By: <cite title="Source Title">
+            <strong>
+                {{comment.user|capfirst}}</cite>
+            </strong>| Answered: {{comment.date}}
         </figcaption>
         </figure>
     {% endfor %}
