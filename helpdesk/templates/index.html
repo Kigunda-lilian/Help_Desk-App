@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <div class="row mt-5 pt-4">
-        <div class="col-md-6">
-            <div class="card">
+
+    <div class="row mt-5 pt-4 auto">
+      {% comment %} <div class="col-md-10  mx-auto"> {% endcomment %}
+        {% comment %} <div class="col-md-5  mx-auto"> {% endcomment %}
+            <div class="card col-md-4 mx-auto shadow" >
                 <div class="card-body">
                   <h5 class="card-title">About Us</h5>
                   <p class="faq card-text">Help Desk App is a website application that
@@ -17,18 +19,24 @@
                   <a href=" {% url 'post' %} " class="btn btn-primary">Post Your Question</a>
                 </div>
               </div>
-        </div>
-        <div class="col-md-6">
-            <img src=" {% static 'static/helpdesk/images/helpline.jpg' %} " alt="">
-        </div>
+            {% comment %} </div> {% endcomment %}
+        {% comment %} <div class="col-md-5  mx-auto " > {% endcomment %}
+           
+          <div class="card col-md-4 mx-auto shadow ">
+            <img class="w-100 shadow"  src=" {% static '/helpline.jpg' %} " alt="" height= 300px width= 350px style=" padding:0px;!important  margin:0;!important ">
+        {% comment %} </div> {% endcomment %}
+      </div>
     </div><br><br>
     <style>
         .faqs {
           color:F8966C
         }
-        .card-text {
-            color:F8966C
-          }
+      h5 {
+        color:F8966C
+      }
+     #faq{
+        color:F8966C
+      }
         
         
     </style>
@@ -36,15 +44,20 @@
         <h5 class=" d-flex justify-content-center">FAQs</h5>
         <hr>
         <div class="faq container_fluid justify-content-center "
-        <div class=" faq">
-            <a href="#" class="list-group-item list-group-item-action " aria-current="true">
-                How does HelpLine App Works?
-            </a>
+        <div class=" faq" >
+          
             
-            <a href="#" class="list card-text list-group-item list-group-item-action">What is the average time to find a solution?</a>
-            <a href="#" class=" card-text list-group-item list-group-item-action">How efficient and effective is Helpline Desk App?</a>
-            <a href="#" class="card-text list-group-item list-group-item-action">Can I trust Helpline App with my personal data?</a>
-            <a href="#" class="card-text list-group-item list-group-item-action">Can I be notified when a suggestion to my question is  replied?</a>
+          <ol style="list-style-type:1">
+            <li><a href="#" class="list-group-item list-group-item-action " aria-current="true"id = "faq">
+                How does HelpLine App Works?
+            </a></li>
+            
+            <li><a href="#" class="list card-text list-group-item list-group-item-action"id = "faq">What is the average time to find a solution?</a></li>
+              <li><a href="#" class=" card-text list-group-item list-group-item-action"id = "faq">How efficient and effective is Helpline Desk App?</a></li>
+                <li><a href="#" class="card-text list-group-item list-group-item-action"id = "faq">Can I trust Helpline App with my personal data?</a></li>
+                  <li><a href="#" class="card-text list-group-item list-group-item-action"id = "faq">Can I be notified when a suggestion to my question is  replied?</a></li>
+   
+        </ol>
           </div>
         {% comment %} <p class="card-text">How does HelpLine App Works?</p>
         <p class="card-text">What is the average time to find a solution?</p>
