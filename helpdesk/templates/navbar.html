@@ -1,41 +1,64 @@
-
-
-<nav class=" navbar navbar-expand-lg navbar-dark  fixed-top navi"style = "background-color:E28743;!important">
-    <a class="navbar-brand" href="#"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">HelpDesk</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href=" {% url 'home' %} ">Home <span class="sr-only">(current)</span></a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=" {% url 'home' %} ">Home</a>
         </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'tags' %}">Tags<span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=" {% url 'tags' %} ">Tags</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=" {% url 'home' %} ">FAQS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=" {% url 'questions' %} ">Questions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=" {% url 'post' %} ">Add Question</a>
+        </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href=" {% url 'logout' %} ">Logout</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href=" {% url 'add_question' %} ">Add Question<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href=" {% url 'questions' %} ">Questions<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Register<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href=" {% url 'login' %} ">Login<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href=" {% url 'logout' %} ">Logout<span class="sr-only">(current)</span></a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="">Edit profile</a></li>
+              <li><a class="dropdown-item" href=" {% url 'profile' %} ">Show Profile</a></li>
+              <li><a class="dropdown-item" href="#">Create Profile</a></li>
+            </ul>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>  
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href=" {% url 'register' %} ">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href=" {% url 'login' %} ">Login</a>
+          </li>
+        {% endif %}
+        
+        
+        
+      <!--search-->
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+    
+
+
+
            
           
           
