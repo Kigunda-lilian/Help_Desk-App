@@ -1,53 +1,8 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
-    <div class="row mt-3">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                  <h1 style="text-align: center;" class="card-title">About Us</h1>
-                  <p style="font-size: x-large; text-align: center;" class="card-text">Help Desk App is a website application that <br>
-                    is focused in making the life of <br> programmers
-                   more easy.
-                   We are passionate <br> in bringing solutions 
-                   accessible enough enjoy! <br> because help desk
-                    is got you. <br> Our team is dediated
-                    to <br> put your needs onpoint 24/7.
-                   </p> <br><br>
-                  <a href=" {% url 'post' %} " class="btn btn-primary">Post Your Question</a> <br><br><br>
-                </div>
-              </div>
-        </div>
-        <div class="col-md-6">
-          <img src="{% static '/helpdesk/images/picture.png' %}" alt="images" height="72%" width="100%">
-        </div>
-    </div>
-    <div class="faqs">
-      <div class="card-body">
-        <h5 class="card-title">FAQs</h5>
-        <a href="">
-          <p class="card-text">How does HelpLine App Works?</p>
-        </a>
-        <a href="">
-          <p class="card-text">What is the average time to find a solution?</p>
-        </a>
-        <a href="">
-          <p class="card-text">How efficient and effective is Helpline Desk App?</p>
-        </a>
-        <a href="">
-          <p class="card-text">Can I trust Helpline App with my personal data?</p>
-        </a>
-        <a href="">
-          <p class="card-text">Can I be notified when a suggestion to my question is  replied?</p>
-        </a>
-    </div>    
-  </div>
-
   {% extends "base.html" %}
   {% load static %}
   {% block content %}
   
-      <div class="row mt-5 pt-4 auto">
+      <div class="row mt-5 pt-5 auto">
         {% comment %} <div class="col-md-10  mx-auto"> {% endcomment %}
           {% comment %} <div class="col-md-5  mx-auto"> {% endcomment %}
               <div class="card col-md-4 mx-auto shadow" >
@@ -133,17 +88,17 @@
             </a>
           </div>
           <div>
-              <div class="row" style="background-color: black;">
+              <div class="row bg-secondary" >
                   <br>
                   <div class="col-md-6" style="color: white;">
                       <br>
                       <h1>QUICK LINKS</h1>
-                      <div class="links">
-                          <a href="{% url 'home' %} ">Home</a><br>
-                          <a href="">About Us</a><br>
-                          <a href="{% url 'questions' %}">Question</a><br>
-                          <a href=" {% url 'register' %} ">Register</a><br>
-                          <a href="">Contact Us</a>
+                      <div class="links text-white">
+                          <a href="{% url 'home' %} " class=" text-white">Home</a><br>
+                          <a href=""class=" text-white">About Us</a><br>
+                          <a href="{% url 'questions' %}"class=" text-white">Question</a><br>
+                          <a href=" {% url 'register' %} "class=" text-white">Register</a><br>
+                          <a href=""class=" text-white">Contact Us</a>
                       </div>
                       
                   </div>
@@ -154,14 +109,12 @@
                       <p>Telephone: 020-234-5678</p>
                       <p>Postal Address: 00100, Nairobi, kenya</p>
                       <br>
-                      <br>
-                      <br>
+                     
+                   
                       
                       
                   </div>
-                  <hr>
-                  <br>
-                  <br>
+                 
               </div>
           </div>
         </div>

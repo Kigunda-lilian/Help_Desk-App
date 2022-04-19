@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'helpdesk',
     'crispy_forms',
     'bootstrap5',
-    'rest_framework',
+   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
