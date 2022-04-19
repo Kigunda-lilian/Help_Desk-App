@@ -1,56 +1,130 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
-    <div class="row mt-5 pt-4">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">About Us</h5>
-                  <p class="faq card-text">Help Desk App is a website application that
-                    is focused in making the life of programmers
-                   more easy.
-                   We are passionate in bringing solutions 
-                   accessible enough enjoy! because help desk
-                    is got you.Our team is dediated
-                    to put your needs onpoint 24/7.
-                   </p>
-                  <a href=" {% url 'post' %} " class="btn btn-primary">Post Your Question</a>
+  {% extends "base.html" %}
+  {% load static %}
+  {% block content %}
+  
+      <div class="row mt-5 pt-5 auto">
+        {% comment %} <div class="col-md-10  mx-auto"> {% endcomment %}
+          {% comment %} <div class="col-md-5  mx-auto"> {% endcomment %}
+              <div class="card col-md-4 mx-auto shadow" >
+                  <div class="card-body">
+                    <h5 class="card-title">About Us</h5>
+                    <p class="faq card-text">Help Desk App is a website application that
+                      is focused in making the life of programmers
+                     more easy.
+                     We are passionate in bringing solutions 
+                     accessible enough enjoy! because help desk
+                      is got you.Our team is dediated
+                      to put your needs onpoint 24/7.
+                     </p>
+                    <a href=" {% url 'post' %} " class="btn btn-primary">Post Your Question</a>
+                  </div>
                 </div>
-              </div>
+              {% comment %} </div> {% endcomment %}
+          {% comment %} <div class="col-md-5  mx-auto " > {% endcomment %}
+             
+            <div class="card col-md-4 mx-auto shadow ">
+              <img class="w-100 shadow"  src=" {% static '/helpline.jpg' %} " alt="" height= 300px width= 350px style=" padding:0px;!important  margin:0;!important ">
+          {% comment %} </div> {% endcomment %}
         </div>
-        <div class="col-md-6">
-            <img src=" {% static 'static/helpdesk/images/helpline.jpg' %} " alt="">
-        </div>
-    </div><br><br>
-    <style>
-        .faqs {
-          color:F8966C
-        }
-        .card-text {
+      </div><br><br>
+      <style>
+          .faqs {
             color:F8966C
           }
-        
-        
-    </style>
-    <div class="faqs container">
-        <h5 class=" d-flex justify-content-center">FAQs</h5>
-        <hr>
-        <div class="faq container_fluid justify-content-center "
-        <div class=" faq">
-            <a href="#" class="list-group-item list-group-item-action " aria-current="true">
-                How does HelpLine App Works?
-            </a>
+        h5 {
+          color:F8966C
+        }
+       #faq{
+          color:F8966C
+        }
+          
+          
+      </style>
+      <div class="faqs container">
+          <h5 class=" d-flex justify-content-center">FAQs</h5>
+          <hr>
+          <div class="faq container_fluid justify-content-center "
+          <div class=" faq" >
             
-            <a href="#" class="list card-text list-group-item list-group-item-action">What is the average time to find a solution?</a>
-            <a href="#" class=" card-text list-group-item list-group-item-action">How efficient and effective is Helpline Desk App?</a>
-            <a href="#" class="card-text list-group-item list-group-item-action">Can I trust Helpline App with my personal data?</a>
-            <a href="#" class="card-text list-group-item list-group-item-action">Can I be notified when a suggestion to my question is  replied?</a>
+              
+            <ol style="list-style-type:1">
+              <li><a href="#" class="list-group-item list-group-item-action " aria-current="true"id = "faq">
+                  How does HelpLine App Works?
+              </a></li>
+              
+              <li><a href="#" class="list card-text list-group-item list-group-item-action"id = "faq">What is the average time to find a solution?</a></li>
+                <li><a href="#" class=" card-text list-group-item list-group-item-action"id = "faq">How efficient and effective is Helpline Desk App?</a></li>
+                  <li><a href="#" class="card-text list-group-item list-group-item-action"id = "faq">Can I trust Helpline App with my personal data?</a></li>
+                    <li><a href="#" class="card-text list-group-item list-group-item-action"id = "faq">Can I be notified when a suggestion to my question is  replied?</a></li>
+     
+          </ol>
+            </div>
+          {% comment %} <p class="card-text">How does HelpLine App Works?</p>
+          <p class="card-text">What is the average time to find a solution?</p>
+          <p class="card-text">How efficient and effective is Helpline Desk App?</p>
+          <p class="card-text">Can I trust Helpline App with my personal data?</p>
+          <p class="card-text">Can I be notified when a suggestion to my question is  replied?</p> {% endcomment %}
+      </div>
+      </div>
+       <!-- Start of footer -->
+  
+  <footer class="mt-5">
+  
+      <div class="container bottom text-center border-top">
+        <div class="mt-2em">
+          
+          <div class="row d-flex justify-content-center icons mt-2em">
+            <a href="https://github.com/ShaviyaVictor" target="_blank">
+              <i class="bi bi-github futa"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/victor-shaviya-532ab0110/" target="_blank">
+              <i class="bi bi-linkedin futa"></i>
+            </a>
+            <a href="https://www.facebook.com/afroignite.house" target="_blank">
+              <i class="bi bi-facebook futa"></i>
+            </a>
+            <a href="https://www.instagram.com/ignition_reads/" target="_blank">
+              <i class="bi bi-instagram futa"></i>
+            </a>
           </div>
-        {% comment %} <p class="card-text">How does HelpLine App Works?</p>
-        <p class="card-text">What is the average time to find a solution?</p>
-        <p class="card-text">How efficient and effective is Helpline Desk App?</p>
-        <p class="card-text">Can I trust Helpline App with my personal data?</p>
-        <p class="card-text">Can I be notified when a suggestion to my question is  replied?</p> {% endcomment %}
-    </div>
-    </div>
-{% endblock %}
+          <div>
+              <div class="row bg-secondary" >
+                  <br>
+                  <div class="col-md-6" style="color: white;">
+                      <br>
+                      <h1>QUICK LINKS</h1>
+                      <div class="links text-white">
+                          <a href="{% url 'home' %} " class=" text-white">Home</a><br>
+                          <a href=""class=" text-white">About Us</a><br>
+                          <a href="{% url 'questions' %}"class=" text-white">Question</a><br>
+                          <a href=" {% url 'register' %} "class=" text-white">Register</a><br>
+                          <a href=""class=" text-white">Contact Us</a>
+                      </div>
+                      
+                  </div>
+                  <div class="col-md-6" style="color: white;text-align: left;">
+                      <br>
+                      <h1>CONTACT US</h1>
+                      <p>Email: info@helpdesk.com</p>
+                      <p>Telephone: 020-234-5678</p>
+                      <p>Postal Address: 00100, Nairobi, kenya</p>
+                      <br>
+                     
+                   
+                      
+                      
+                  </div>
+                 
+              </div>
+          </div>
+        </div>
+        <h6 class="small mt-3">
+          Copyright &copy; 2022 | HelpDesk| All Rights Reserved.
+        </h6>
+      </div>
+    
+    </footer>
+    
+    <!-- End of footer -->
+  
+  {% endblock %}

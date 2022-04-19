@@ -1,11 +1,10 @@
 {%extends 'base.html'%}
-
 {% block content %}
 <div class="container_fluid mt-5 pt-5 ">
  <div> <h2 >Tags<h2></div>
-    <p> 
-      A tag is a keyword or label that categorizes your question with other,<br> 
-      similar questions. Using the right tags makes it easier for others to find and 
+    <p>
+      A tag is a keyword or label that categorizes your question with other,<br>
+      similar questions. Using the right tags makes it easier for others to find and
       answer your question.
     </p>
     <a href="#" >Show all tag synonyms</a>
@@ -13,53 +12,41 @@
 <div class= "container">
   <div class="row">
     <div class="col-sm-3">
-
   <form class="d-flex">
-  
-   
     <div class="input-group">
       <div class="input-group-prepend">
        <span class="input-group-text"><i class="fa fa-search"></i></span>
        </div>
       <input type="text" class="form-control" placeholder="filter by tag name">
      </div>
-
   </form>
 </div>
 <div class="col-sm-5">
-  
 </div>
 <div class="col-sm-4">
-
   <div class="btn-group">
     <a href="#" class="btn btn-outline-secondary">Popular</a>
     <a href="#" class="btn btn-outline-secondary">Name</a>
     <a href="#" class="btn btn-outline-secondary">New</a>
   </div>
-</div> 
-
 </div>
 </div>
-
+</div>
 {% for tag in tags %}
-<div class="container px-4">
-  <div class="row row-cols-3 row-cols-md-3 g-4">
-    <div class="col">
-   
-   
-    <div class="card mt-3 mb-3 px-3 pt-4 pb-3  " style="width: 30%;">
-     
-      <div class="card-body">
-        <h5 class="card-title  mb-2 "><mark>{{tag.title}}</mark></h5>
-        <p class="card-text"> {{tag.Description}}</p>
-        <a href="#" class="card-link ">{{tag.language}}</a>
-        <a href="#" class="card-link text-muted">{{tag.stage}}</a>
-      </div>
-      </div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                {{tag.stage}}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{tag.title}}</h5>
+              <p class="card-text">{{tag.Description}}</p>
+              <p class="card-text">{{tag.language}}</p>
+              <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+            </div>
+          </div>
     </div>
-    
-    </div>
-  </div>
-
+</div>
 {% endfor %}
 {% endblock %}
