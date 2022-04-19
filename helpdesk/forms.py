@@ -12,6 +12,7 @@ class PostForm(ModelForm):
         widgets = {
       'title': forms.TextInput(attrs={'class':'form-control'}),
       'question': forms.Textarea(attrs={'class':'form-control'}),
+
     }
 
 
@@ -22,7 +23,6 @@ class ProfileForm(forms.ModelForm):
     exclude = ['user']
 
 class CommentForm(forms.ModelForm):
-
   class Meta:
     model = Comment
     fields = ('body',)

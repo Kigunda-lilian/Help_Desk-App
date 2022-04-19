@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg  navbar-dark fixed-top "style="background-color:E28743;!important">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">HelpDesk</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,6 +10,9 @@
           <a class="nav-link active" aria-current="page" href=" {% url 'home' %} ">Home</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=" {% url 'tags' %} ">Tags</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page" href=" {% url 'home' %} ">FAQS</a>
         </li>
         <li class="nav-item">
@@ -18,30 +21,36 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href=" {% url 'post' %} ">Add Question</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href=" {% url 'register' %} ">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href=" {% url 'login' %} ">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href=" {% url 'logout' %} ">Logout</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Profile
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="">Edit profile</a></li>
-            <li><a class="dropdown-item" href=" {% url 'profile' %} ">Show Profile</a></li>
-            <li><a class="dropdown-item" href="#">Create Profile</a></li>
-          </ul>
-        </li>
-      </ul>
+        {% comment %} {% if user.is_authenticated %} {% endcomment %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href=" {% url 'logout' %} ">Logout</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="">Edit profile</a></li>
+              <li><a class="dropdown-item" href=" {% url 'profile' %} ">Show Profile</a></li>
+              <li><a class="dropdown-item" href="#">Create Profile</a></li>
+            </ul>
+          </li>
+        </ul>
+        {% comment %} {% else %} {% endcomment %}
+          {% comment %} <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href=" {% url 'register' %} ">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href=" {% url 'login' %} ">Login</a>
+          </li> {% endcomment %}
+        {% comment %} {% endif %} {% endcomment %}
+        
+        
+        
       <!--search-->
       <form class="d-flex">
         <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
     </div>
   </div>
