@@ -11,6 +11,8 @@
                     Posted On: {{question.posted_on}}
                 </p>
                 <p>Author: {{question.post_owner}}</p>
+                <a href=" {% url 'tagview' question.tag %} ">{{question.tag}}</a>
+                <p># {{question.tag}}</p>
               </div>
             </div>
             <hr>

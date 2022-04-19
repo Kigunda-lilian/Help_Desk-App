@@ -14,10 +14,22 @@ class Profile(models.Model):
 
 
 import datetime as dt
+class Tag(models.Model):
+    language= models.CharField(max_length=50)
+    stage= models.CharField(max_length=80)
+    logical=models.BooleanField(default=True)
+    technical=models.BooleanField(default=False)
+    def __str__(self):
+        return self.language  
+    
+    def get_absolute_url(self):
+        return reverse('questions')
+
 class Post(models.Model):
     post_owner = models.ForeignKey(User, on_delete=models.PROTECT,null="False",related_name='user_images')
     title = models.CharField(max_length=40)
     question=models.TextField(max_length=280)
+    tag=models.CharField(max_length=100,blank=True,default='Uncategorized')
     posted_on = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')
     dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
@@ -58,16 +70,7 @@ class Post(models.Model):
             return self.title
     
        
-class Tag(models.Model):
-    language= models.CharField(max_length=50)
-    stage= models.CharField(max_length=80)
-    logical=models.BooleanField(default=True)
-    technical=models.BooleanField(default=False)
-    def __str__(self):
-        return self.language  
-    
-    def __str__(self):
-        return self.language
+
     
 reactions={('Like','Like'),('Unlike','Unlike')}
     

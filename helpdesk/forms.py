@@ -1,20 +1,34 @@
 from django.forms import ModelForm
 from django import forms
-from . models import Post,Profile,Comment,Like
+from . models import Post,Profile,Comment,Like,Tag
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
+#choices = [('JavaScript','JavaScript'),('Django','Django'),('Java','Java'),]
+choices = Tag.objects.all().values_list('language','language')
+choice_list = []
+for item in choices:
+  choice_list.append(item)
 
 class PostForm(ModelForm):
     class Meta:
         model=Post
-        fields="__all__"
+        fields="title","question","tag","post_owner"
         widgets = {
       'title': forms.TextInput(attrs={'class':'form-control'}),
       'question': forms.Textarea(attrs={'class':'form-control'}),
+      'post_owner':forms.TextInput(attrs={'class': 'form-control','value': ' ','id':'elder','type':'hidden'}),
+      'tag':forms.Select(choices=choice_list,attrs={'class':'form-control'})
 
     }
-
+class TagForm(ModelForm):
+    class Meta:
+        model=Tag
+        fields="language","stage","logical","technical"
+        widgets = {
+      'language': forms.TextInput(attrs={'class':'form-control'}),
+      'stage': forms.Textarea(attrs={'class':'form-control'})
+    }
 
 
 class ProfileForm(forms.ModelForm):

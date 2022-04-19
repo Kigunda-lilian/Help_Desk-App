@@ -1,52 +1,23 @@
-{%extends 'base.html'%}
+{% extends "base.html" %}
 {% block content %}
-<div class="container_fluid mt-5 pt-5 ">
- <div> <h2 >Tags<h2></div>
-    <p>
-      A tag is a keyword or label that categorizes your question with other,<br>
-      similar questions. Using the right tags makes it easier for others to find and
-      answer your question.
-    </p>
-    <a href="#" >Show all tag synonyms</a>
-</div><br><br>
-<div class= "container">
-  <div class="row">
-    <div class="col-sm-3">
-  <form class="d-flex">
-    <div class="input-group">
-      <div class="input-group-prepend">
-       <span class="input-group-text"><i class="fa fa-search"></i></span>
-       </div>
-      <input type="text" class="form-control" placeholder="filter by tag name">
-     </div>
-  </form>
-</div>
-<div class="col-sm-5">
-</div>
-<div class="col-sm-4">
-  <div class="btn-group">
-    <a href="#" class="btn btn-outline-secondary">Popular</a>
-    <a href="#" class="btn btn-outline-secondary">Name</a>
-    <a href="#" class="btn btn-outline-secondary">New</a>
-  </div>
-</div>
-</div>
-</div>
-{% for tag in tags %}
-<div class="row">
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-header">
-                {{tag.stage}}
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">{{tag.title}}</h5>
-              <p class="card-text">{{tag.Description}}</p>
-              <p class="card-text">{{tag.language}}</p>
-              <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
-            </div>
+{% if tag_posts %}
+    <h1>{{cats}} Tag </h1>
+    <ul>
+      {% for post in tag_posts %}
+        <a style="text-decoration: none;" href=" {% url 'details' post.pk %} "><h3>{{ post.question }}</h3></a>
+        <div class="row">          
+          <div class="col-ms-3">
+            <p class="text-muted">
+                Posted On: {{post.posted_on}}
+            </p>
+            <p>Author: {{post.post_owner}}</p>
+            <p># {{post.tag}}</p>
           </div>
-    </div>
-</div>
-{% endfor %}
+        </div>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% else %}
+  <p>There are no Questions for {{cats}}!!</p>
+  {% endif %}
 {% endblock %}

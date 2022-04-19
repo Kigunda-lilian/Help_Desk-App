@@ -1,12 +1,12 @@
 from django.urls import path
 from . import views 
-from .views import AddLike,AddDislike,AddCommentDislike,UserRegisterView,AddCommentLike,likecomment,dislikecomment,ProfileList,ProfileDetail,PostList,PostDetails,CommentsList,CommentsDetails,TagList,TagsDetails
+from .views import AddLike,AddDislike,AddCommentDislike,UserRegisterView,AddCommentLike,likecomment,dislikecomment,ProfileList,ProfileDetail,PostList,PostDetails,CommentsList,CommentsDetails,TagList,TagsDetails,AddTagView,TagView
 urlpatterns = [ 
     path('',views.home,name='home'),
     path("profile/", views.my_profile, name="profile"),
     path("profile/updateprofile/", views.update_profile_form, name="updateprofileform"),
     path("profile/update/", views.update_profile, name="updateprofile"),
-    path('tags/', views.tags, name='tags'),
+    # path('tags/', views.tags, name='tags'),
     path("post/", views.post, name="post"),
     path('post/<int:pk>/like', AddLike.as_view(), name='like'),
     path('post/<int:pk>/dislike', AddDislike.as_view(), name='dislike'),
@@ -21,7 +21,8 @@ urlpatterns = [
     path('register/', UserRegisterView.as_view(), name='register'),
     path('post/likecomment/<int:id>/<int:ids>',likecomment,name='likecomment'),
     path('post/dislikecomment/<int:id>/<int:ids>',dislikecomment,name='dislikecomment'),
-
+    path('add_tag/',AddTagView.as_view(),name='add-tag'),
+    path('tag/<str:cats>/',TagView,name='tagview'),
     path("api/profile/",ProfileList.as_view(),name="profileApi"),
     path("api/profile/<int:pk>",ProfileDetail.as_view(),name="profiledetail"),
     path("api/post/",PostList.as_view(),name="postApi"),

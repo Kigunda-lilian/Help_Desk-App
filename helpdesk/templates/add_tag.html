@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1> Create More Tags</h1>
+    <br>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+        <button class="btn btn-secondary">Add Tags</button>
+    </div>
+ 
+{% endblock %}

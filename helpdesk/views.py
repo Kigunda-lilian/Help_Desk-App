@@ -1,12 +1,13 @@
+from dataclasses import field
 from multiprocessing import context
 from ssl import create_default_context
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Like, Post,Profile, Comment,Dislike, Tag
+from .models import Like, Post,Profile, Comment,Dislike,Tag
 from helpdesk import views,forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import CommentForm,PostForm
+from .forms import CommentForm,PostForm, TagForm
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.views import generic
@@ -27,6 +28,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer,PostSerializer,TagSerializer, CommentsSerializer
 from helpdesk import serializer
+from django.views.generic import CreateView
 
 
 #search results
@@ -42,9 +44,18 @@ def search(request):
     
     return render(request,'search.html', context)
     #tags views
-def tags(request):
-    tag = Tag.objects.all()
-    return render(request, 'questions/tags.html',{'tags':tag})
+# def tags(request):
+#     tag = Tag.objects.all()
+#     return render(request, 'questions/tags.html',{'tags':tag})
+def TagView(request, cats):
+    tag_posts = Post.objects.filter(tag=cats)
+    return render(request,'questions/tags.html',{'cats': cats.title(),'tag_posts':tag_posts})
+
+class AddTagView(CreateView):
+    model = Tag
+    form=TagForm()
+    template_name='add_tag.html'
+    fields = '__all__'
     
 
 
@@ -65,6 +76,7 @@ def approve_ans(request,id):
 
 def home(request):
     return render(request, 'index.html', {})
+    
     
 def my_profile(request):
     current_user = request.user

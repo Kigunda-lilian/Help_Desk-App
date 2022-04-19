@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
 <style>
@@ -29,14 +30,23 @@
         color:white
     }
 </style>
+
 <div class="container all mt-4">
 <h1 class="text-center text-secondary pt-4 text-white">New Question Form</h1>
     <form class="quiz_form"  method="POST">
          {% csrf_token %}
         {{ form|crispy}}
+        <br>
+        <a style="text-decoration: none;" href=" {% url 'add-tag' %} "><i style="font-size: x-large;" class="fa-solid fa-circle-plus mx-2"></i>Add a Tag instead</a>
+        
+        <br>
         <input type="submit" class="btn btn-secondary mt-3" value="Submit Question">
 
     </form>
 </div>
+<script>
+    var name =  "{{ user.id }}";
+    document.getElementById("elder").value = name;
+</script>
 
 {% endblock %}
