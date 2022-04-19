@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <p>Posted by: {{ post.post_owner.username }} </p>
+    <p style="margin-top: 100;">Posted by: {{ post.post_owner.username }} </p>
     <h1> {{ post.question }}? </h1>
     <!--Approve ans -->
     <h2>{{ comments.count }} Answer{{comments|pluralize}}</h2>

@@ -12,8 +12,11 @@
         padding: 20px;
     }
 </style>
-<div class="container">
+<div class="container mt-5 pt-5">
+    <br><br><br>
+   
 <h1 class="text-center">Registration Form</h1>
+<br><br>
     <form action="/accounts/register/" method="POST">
          {% csrf_token %}
         {{ form|crispy}}
