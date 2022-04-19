@@ -21,7 +21,7 @@ class PostForm(ModelForm):
       'tag':forms.Select(choices=choice_list,attrs={'class':'form-control'})
 
     }
-class TagForm(ModelForm):
+class TagForm(forms.ModelForm):
     class Meta:
         model=Tag
         fields="language","stage","logical","technical"

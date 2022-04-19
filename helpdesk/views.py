@@ -53,9 +53,9 @@ def TagView(request, cats):
 
 class AddTagView(CreateView):
     model = Tag
-    form=TagForm()
+    form_class=TagForm
     template_name='add_tag.html'
-    fields = '__all__'
+    # fields = '__all__'
     
 
 
